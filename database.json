@@ -1,0 +1,129 @@
+[
+  {
+    "collection": "Organization", /* collection: String */
+    "documents": [
+      {
+        "_id": { "$oid": "64a3f5a8a6e7e00123456789" }, /* ObjectId */
+        "parent_id": { "$oid": "64a3f5a8a6e7e000000000000" }, /* ObjectId */
+        "name": "HR Department", /* String */
+        "position_ids": [
+          { "$oid": "64a3f5a8a6e7e0012345678a" }, /* Array<ObjectId> */
+          { "$oid": "64a3f5a8a6e7e0012345678b" }  /* Array<ObjectId> */
+        ]
+      }
+    ]
+  },
+  {
+    "collection": "Position", /* collection: String */
+    "documents": [
+      {
+        "_id": { "$oid": "64a3f5a8a6e7e0012345678a" }, /* ObjectId */
+        "organization_id": { "$oid": "64a3f5a8a6e7e00123456789" }, /* ObjectId (Reference to Organization) */
+        "name": "Manager", /* String */
+        "description": "Manages the team", /* String */
+        "base_salary": 5000.0, /* Number (Double) */
+        "permissions": [ "MANAGE_EMPLOYEES", "MANAGE_TASKS" ] /* Array<String> */
+      }
+    ]
+  },
+  {
+    "collection": "Employee", /* collection: String */
+    "documents": [
+      {
+        "_id": { "$oid": "64a3f5a8a6e7e0012345678c" }, /* ObjectId */
+        "name": "John Doe", /* String */
+        "position_id": { "$oid": "64a3f5a8a6e7e0012345678a" }, /* ObjectId (Reference to Position) */
+        "organization_id": { "$oid": "64a3f5a8a6e7e00123456789" }, /* ObjectId (Reference to Organization) */
+        "phone": "123-456-7890", /* String */
+        "status": "WORKING", /* String (Enum: WORKING, ON_LEAVE, etc.) */
+        "overtime_hours": 10, /* Number (Integer) */
+        "late_hours": 5, /* Number (Integer) */
+        "absent_days": 0, /* Number (Integer) */
+        "account_id": { "$oid": "64a3f5a8a6e7e0012345678d" } /* ObjectId (Reference to Account) */
+      }
+    ]
+  },
+  {
+    "collection": "Account", /* collection: String */
+    "documents": [
+      {
+        "_id": { "$oid": "64a3f5a8a6e7e0012345678d" }, /* ObjectId */
+        "employee_id": { "$oid": "64a3f5a8a6e7e0012345678c" }, /* ObjectId (Reference to Employee) */
+        "username": "johndoe", /* String */
+        "password": "hashed_password", /* String (Hashed Password) */
+        "roles": [ "MANAGER", "EMPLOYEE" ] /* Array<String> */
+      }
+    ]
+  },
+  {
+    "collection": "Task", /* collection: String */
+    "documents": [
+      {
+        "_id": { "$oid": "64a3f5a8a6e7e0012345678e" }, /* ObjectId */
+        "name": "Complete Report", /* String */
+        "description": "Complete the quarterly report", /* String */
+        "assigned_to": [
+          { "$oid": "64a3f5a8a6e7e0012345678c" }, /* Array<ObjectId> (References to Employee) */
+          { "$oid": "64a3f5a8a6e7e0012345678f" }  /* Array<ObjectId> (References to Employee) */
+        ],
+        "status": "IN_PROGRESS" /* String (Enum: IN_PROGRESS, COMPLETED, etc.) */
+      }
+    ]
+  },
+  {
+    "collection": "Salary", /* collection: String */
+    "documents": [
+      {
+        "_id": { "$oid": "64a3f5a8a6e7e00123456790" }, /* ObjectId */
+        "employee_id": { "$oid": "64a3f5a8a6e7e0012345678c" }, /* ObjectId (Reference to Employee) */
+        "working_days": 22, /* Number (Integer) */
+        "salary": 5000.0, /* Number (Double) */
+        "payment_date": { "$date": "2023-10-01T00:00:00Z" } /* Date */
+      }
+    ]
+  },
+  {
+    "collection": "Reward", /* collection: String */
+    "documents": [
+      {
+        "_id": { "$oid": "64a3f5a8a6e7e00123456791" }, /* ObjectId */
+        "employee_id": { "$oid": "64a3f5a8a6e7e0012345678c" }, /* ObjectId (Reference to Employee) */
+        "completed_tasks": 5, /* Number (Integer) */
+        "performance_score": 90.0, /* Number (Double) */
+        "reward": 500.0, /* Number (Double) */
+        "type": "MONEY" /* String (Enum: MONEY, BONUS, etc.) */
+      }
+    ]
+  },
+  {
+    "collection": "Performance", /* collection: String */
+    "documents": [
+      {
+        "_id": { "$oid": "64a3f5a8a6e7e00123456792" }, /* ObjectId */
+        "employee_id": { "$oid": "64a3f5a8a6e7e0012345678c" }, /* ObjectId (Reference to Employee) */
+        "performance_score": 85.0, /* Number (Double) */
+        "complete_rate": 0.9, /* Number (Double) */
+        "ontime_rate": 0.95, /* Number (Double) */
+        "quality_score": 4 /* Number (Integer) */
+      }
+    ]
+  },
+  {
+    "collection": "TrainingProgram", /* collection: String */
+    "documents": [
+      {
+        "_id": { "$oid": "64a3f5a8a6e7e00123456793" }, /* ObjectId */
+        "name": "Leadership Training", /* String */
+        "description": "Training for leadership skills", /* String */
+        "start": { "$date": "2023-11-01T09:00:00Z" }, /* Date */
+        "end": { "$date": "2023-11-05T17:00:00Z" }, /* Date */
+        "location": "Conference Room A", /* String */
+        "trainer_id": { "$oid": "64a3f5a8a6e7e0012345678c" }, /* ObjectId (Reference to Employee) */
+        "participant_ids": [
+          { "$oid": "64a3f5a8a6e7e0012345678f" }, /* Array<ObjectId> (References to Employee) */
+          { "$oid": "64a3f5a8a6e7e00123456794" }  /* Array<ObjectId> (References to Employee) */
+        ]
+      }
+    ]
+  }
+]
