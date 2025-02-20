@@ -15,7 +15,7 @@ public class MongoDBConnection {
     public static MongoDatabase getDatabase() {
         if (database == null) {
             mongoClient = MongoClients.create(CONNECTION_STRING);
-            database = mongoClient.getDatabase("HumanResourceManagement");
+            database = mongoClient.getDatabase("Human-Resource-Management-System");
         }
         return database;
     }

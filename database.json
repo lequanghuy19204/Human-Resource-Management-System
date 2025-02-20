@@ -3,7 +3,7 @@
     "collection": "Company",
     "documents": [
       {
-        "_id": { "$oid": "64a3f5a8a6e7e000000000001" },
+        "_id": { "$oid": "67b747d5a149c44917f156ad" },
         "name": "Company A",
         "description": "Công ty mẹ quản lý các tổ chức nội bộ"
       }
@@ -13,8 +13,8 @@
     "collection": "Organization",
     "documents": [
       {
-        "_id": { "$oid": "64a3f5a8a6e7e00123456789" },
-        "company_id": { "$oid": "64a3f5a8a6e7e000000000001" },
+        "_id": { "$oid": "67b7497ba149c44917f156b4" },
+        "company_id": { "$oid": "67b747d5a149c44917f156ad" },
         "name": "HR Department",
         "position_ids": [
           { "$oid": "64a3f5a8a6e7e0012345678a" },
@@ -28,7 +28,7 @@
     "documents": [
       {
         "_id": { "$oid": "64a3f5a8a6e7e0012345678a" },
-        "organization_id": { "$oid": "64a3f5a8a6e7e00123456789" },
+        "organization_id": { "$oid": "67b7497ba149c44917f156b4" },
         "name": "Manager",
         "description": "Manages the team",
         "base_salary": 5000.0,
@@ -43,7 +43,7 @@
       },
       {
         "_id": { "$oid": "64a3f5a8a6e7e0012345678b" },
-        "organization_id": { "$oid": "64a3f5a8a6e7e00123456789" },
+        "organization_id": { "$oid": "67b7497ba149c44917f156b4" },
         "name": "Staff",
         "description": "Handles daily tasks",
         "base_salary": 3000.0,
@@ -58,8 +58,8 @@
         "_id": { "$oid": "64a3f5a8a6e7e0012345678c" },
         "name": "John Doe",
         "position_id": { "$oid": "64a3f5a8a6e7e0012345678a" },
-        "organization_id": { "$oid": "64a3f5a8a6e7e00123456789" },
-        "company_id": { "$oid": "64a3f5a8a6e7e000000000001" },
+        "organization_id": { "$oid": "67b7497ba149c44917f156b4" },
+        "company_id": { "$oid": "67b747d5a149c44917f156ad" },
         "manager_id": { "$oid": "64a3f5a8a6e7e000000000000" },
         "phone": "123-456-7890",
         "status": "WORKING",
@@ -72,8 +72,8 @@
         "_id": { "$oid": "64a3f5a8a6e7e0012345678f" },
         "name": "Jane Smith",
         "position_id": { "$oid": "64a3f5a8a6e7e0012345678b" },
-        "organization_id": { "$oid": "64a3f5a8a6e7e00123456789" },
-        "company_id": { "$oid": "64a3f5a8a6e7e000000000001" },
+        "organization_id": { "$oid": "67b7497ba149c44917f156b4" },
+        "company_id": { "$oid": "67b747d5a149c44917f156ad" },
         "manager_id": { "$oid": "64a3f5a8a6e7e0012345678c" },
         "phone": "987-654-3210",
         "status": "WORKING",
@@ -86,8 +86,8 @@
         "_id": { "$oid": "64a3f5a8a6e7e00123456794" },
         "name": "Alice Nguyen",
         "position_id": { "$oid": "64a3f5a8a6e7e0012345678b" },
-        "organization_id": { "$oid": "64a3f5a8a6e7e00123456789" },
-        "company_id": { "$oid": "64a3f5a8a6e7e000000000001" },
+        "organization_id": { "$oid": "67b7497ba149c44917f156b4" },
+        "company_id": { "$oid": "67b747d5a149c44917f156ad" },
         "manager_id": { "$oid": "64a3f5a8a6e7e0012345678c" },
         "phone": "555-123-4567",
         "status": "WORKING",

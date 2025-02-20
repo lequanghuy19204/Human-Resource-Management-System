@@ -1,93 +1,93 @@
 package com.hrms.controller;
 
-import com.hrms.model.Employee;
-import com.hrms.repository.EmployeeRepository;
+import com.hrms.model.TrainingProgram;
+import com.hrms.repository.TrainingProgramRepository;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.bson.types.ObjectId;
 
-@Path("/employees")
+@Path("/training-programs")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class EmployeeResource {
-    private final EmployeeRepository repository = new EmployeeRepository();
+public class TrainingProgramResource {
+    private final TrainingProgramRepository repository = new TrainingProgramRepository();
 
     @GET
-    public Response getAllEmployees() {
+    public Response getAllTrainingPrograms() {
         try {
             return Response.ok(repository.findAll()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Lỗi khi lấy danh sách nhân viên: " + e.getMessage())
+                    .entity("Lỗi khi lấy danh sách chương trình đào tạo: " + e.getMessage())
                     .build();
         }
     }
 
     @GET
     @Path("/{id}")
-    public Response getEmployeeById(@PathParam("id") String id) {
+    public Response getTrainingProgramById(@PathParam("id") String id) {
         try {
-            Employee employee = repository.findById(new ObjectId(id));
-            if (employee != null) {
-                return Response.ok(employee).build();
+            TrainingProgram program = repository.findById(new ObjectId(id));
+            if (program != null) {
+                return Response.ok(program).build();
             }
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Không tìm thấy nhân viên với ID: " + id)
+                    .entity("Không tìm thấy chương trình đào tạo với ID: " + id)
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Lỗi khi tìm nhân viên: " + e.getMessage())
+                    .entity("Lỗi khi tìm chương trình đào tạo: " + e.getMessage())
                     .build();
         }
     }
 
     @POST
-    public Response createEmployee(Employee employee) {
+    public Response createTrainingProgram(TrainingProgram program) {
         try {
-            Employee created = repository.create(employee);
+            TrainingProgram created = repository.create(program);
             return Response.status(Response.Status.CREATED)
                     .entity(created)
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Lỗi khi tạo nhân viên: " + e.getMessage())
+                    .entity("Lỗi khi tạo chương trình đào tạo: " + e.getMessage())
                     .build();
         }
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateEmployee(@PathParam("id") String id, Employee employee) {
+    public Response updateTrainingProgram(@PathParam("id") String id, TrainingProgram program) {
         try {
-            boolean updated = repository.update(new ObjectId(id), employee);
+            boolean updated = repository.update(new ObjectId(id), program);
             if (updated) {
-                return Response.ok(employee).build();
+                return Response.ok(program).build();
             }
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Không tìm thấy nhân viên để cập nhật với ID: " + id)
+                    .entity("Không tìm thấy chương trình đào tạo để cập nhật với ID: " + id)
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Lỗi khi cập nhật nhân viên: " + e.getMessage())
+                    .entity("Lỗi khi cập nhật chương trình đào tạo: " + e.getMessage())
                     .build();
         }
     }
 
     @DELETE
     @Path("/{id}")
-    public Response deleteEmployee(@PathParam("id") String id) {
+    public Response deleteTrainingProgram(@PathParam("id") String id) {
         try {
             boolean deleted = repository.delete(new ObjectId(id));
             if (deleted) {
                 return Response.noContent().build();
             }
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Không tìm thấy nhân viên để xóa với ID: " + id)
+                    .entity("Không tìm thấy chương trình đào tạo để xóa với ID: " + id)
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Lỗi khi xóa nhân viên: " + e.getMessage())
+                    .entity("Lỗi khi xóa chương trình đào tạo: " + e.getMessage())
                     .build();
         }
     }

@@ -1,93 +1,93 @@
 package com.hrms.controller;
 
-import com.hrms.model.Employee;
-import com.hrms.repository.EmployeeRepository;
+import com.hrms.model.Position;
+import com.hrms.repository.PositionRepository;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.bson.types.ObjectId;
 
-@Path("/employees")
+@Path("/positions")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class EmployeeResource {
-    private final EmployeeRepository repository = new EmployeeRepository();
+public class PositionResource {
+    private final PositionRepository repository = new PositionRepository();
 
     @GET
-    public Response getAllEmployees() {
+    public Response getAllPositions() {
         try {
             return Response.ok(repository.findAll()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Lỗi khi lấy danh sách nhân viên: " + e.getMessage())
+                    .entity("Lỗi khi lấy danh sách vị trí: " + e.getMessage())
                     .build();
         }
     }
 
     @GET
     @Path("/{id}")
-    public Response getEmployeeById(@PathParam("id") String id) {
+    public Response getPositionById(@PathParam("id") String id) {
         try {
-            Employee employee = repository.findById(new ObjectId(id));
-            if (employee != null) {
-                return Response.ok(employee).build();
+            Position position = repository.findById(new ObjectId(id));
+            if (position != null) {
+                return Response.ok(position).build();
             }
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Không tìm thấy nhân viên với ID: " + id)
+                    .entity("Không tìm thấy vị trí với ID: " + id)
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Lỗi khi tìm nhân viên: " + e.getMessage())
+                    .entity("Lỗi khi tìm vị trí: " + e.getMessage())
                     .build();
         }
     }
 
     @POST
-    public Response createEmployee(Employee employee) {
+    public Response createPosition(Position position) {
         try {
-            Employee created = repository.create(employee);
+            Position created = repository.create(position);
             return Response.status(Response.Status.CREATED)
                     .entity(created)
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Lỗi khi tạo nhân viên: " + e.getMessage())
+                    .entity("Lỗi khi tạo vị trí: " + e.getMessage())
                     .build();
         }
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateEmployee(@PathParam("id") String id, Employee employee) {
+    public Response updatePosition(@PathParam("id") String id, Position position) {
         try {
-            boolean updated = repository.update(new ObjectId(id), employee);
+            boolean updated = repository.update(new ObjectId(id), position);
             if (updated) {
-                return Response.ok(employee).build();
+                return Response.ok(position).build();
             }
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Không tìm thấy nhân viên để cập nhật với ID: " + id)
+                    .entity("Không tìm thấy vị trí để cập nhật với ID: " + id)
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Lỗi khi cập nhật nhân viên: " + e.getMessage())
+                    .entity("Lỗi khi cập nhật vị trí: " + e.getMessage())
                     .build();
         }
     }
 
     @DELETE
     @Path("/{id}")
-    public Response deleteEmployee(@PathParam("id") String id) {
+    public Response deletePosition(@PathParam("id") String id) {
         try {
             boolean deleted = repository.delete(new ObjectId(id));
             if (deleted) {
                 return Response.noContent().build();
             }
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Không tìm thấy nhân viên để xóa với ID: " + id)
+                    .entity("Không tìm thấy vị trí để xóa với ID: " + id)
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Lỗi khi xóa nhân viên: " + e.getMessage())
+                    .entity("Lỗi khi xóa vị trí: " + e.getMessage())
                     .build();
         }
     }
