@@ -1,0 +1,63 @@
+backend/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── yourdomain/
+│   │   │           └── yourproject/
+│   │   │               ├── config/                # Cấu hình hệ thống
+│   │   │               │   ├── DatabaseConfig.java    # Cấu hình kết nối DB
+│   │   │               │   ├── SecurityConfig.java    # Cấu hình bảo mật
+│   │   │               │   └── AppConfig.java         # Cấu hình chung
+│   │   │               │
+│   │   │               ├── controllers/           # Xử lý các yêu cầu API (RESTful endpoints)
+│   │   │               │   ├── EmployeeController.java
+│   │   │               │   ├── OrganizationController.java
+│   │   │               │   ├── TaskController.java
+│   │   │               │   ├── SalaryController.java
+│   │   │               │   └── RewardController.java
+│   │   │               │
+│   │   │               ├── services/              # Xử lý nghiệp vụ (Business Logic Layer)
+│   │   │               │   ├── EmployeeService.java
+│   │   │               │   ├── OrganizationService.java
+│   │   │               │   ├── TaskService.java
+│   │   │               │   ├── SalaryService.java
+│   │   │               │   └── RewardService.java
+│   │   │               │
+│   │   │               ├── models/                # Định nghĩa Entity/Model
+│   │   │               │   ├── Employee.java
+│   │   │               │   ├── Organization.java
+│   │   │               │   ├── Position.java
+│   │   │               │   ├── Account.java
+│   │   │               │   ├── Task.java
+│   │   │               │   ├── Salary.java
+│   │   │               │   ├── Reward.java
+│   │   │               │   └── Performance.java
+│   │   │               │
+│   │   │               ├── repositories/          # Lớp giao tiếp với database (JPA/Hibernate)
+│   │   │               │   ├── EmployeeRepository.java
+│   │   │               │   ├── OrganizationRepository.java
+│   │   │               │   ├── TaskRepository.java
+│   │   │               │   ├── SalaryRepository.java
+│   │   │               │   └── RewardRepository.java
+│   │   │               │
+│   │   │               ├── utils/                 # Các tiện ích chung
+│   │   │               │   ├── Constants.java
+│   │   │               │   ├── JwtUtil.java           # Xử lý JWT Token (nếu dùng)
+│   │   │               │   └── ValidationUtil.java
+│   │   │               │
+│   │   │               └── Application.java       # File khởi tạo chính (Main class)
+│   │   │
+│   │   ├── resources/             # Các tệp resource
+│   │   │   ├── application.yml    # Cấu hình ứng dụng (Spring Boot)
+│   │   │   ├── logback.xml        # Cấu hình logging
+│   │   │   └── data.sql           # Dữ liệu mẫu (chạy khi khởi động)
+│   │   │
+│   │   └── webapp/                # Nếu bạn dùng webapp, nơi lưu tệp tĩnh (HTML, CSS, JS)
+│   │
+│   ├── test/                      # Các bài test
+│   │   ├── java/
+│   │   └── resources/
+│
+├── pom.xml                         # Cấu hình Maven (hoặc build.gradle nếu dùng Gradle)
+└── README.md                       # Thông tin dự án
