@@ -1,4 +1,4 @@
-package com.hrms.controller;
+package com.example.controller;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
