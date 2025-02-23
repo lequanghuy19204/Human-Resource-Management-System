@@ -1,7 +1,8 @@
 package com.hrms.controller;
 
 import com.hrms.model.Employee;
-import com.hrms.repository.EmployeeRepository;
+import com.hrms.service.EmployeeService;
+import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -11,12 +12,14 @@ import org.bson.types.ObjectId;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class EmployeeResource {
-    private final EmployeeRepository repository = new EmployeeRepository();
+
+    @EJB
+    private EmployeeService employeeService;
 
     @GET
     public Response getAllEmployees() {
         try {
-            return Response.ok(repository.findAll()).build();
+            return Response.ok(employeeService.findAll()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Lỗi khi lấy danh sách nhân viên: " + e.getMessage())
@@ -28,7 +31,7 @@ public class EmployeeResource {
     @Path("/{id}")
     public Response getEmployeeById(@PathParam("id") String id) {
         try {
-            Employee employee = repository.findById(new ObjectId(id));
+            Employee employee = employeeService.findById(new ObjectId(id));
             if (employee != null) {
                 return Response.ok(employee).build();
             }
@@ -45,7 +48,7 @@ public class EmployeeResource {
     @POST
     public Response createEmployee(Employee employee) {
         try {
-            Employee created = repository.create(employee);
+            Employee created = employeeService.create(employee);
             return Response.status(Response.Status.CREATED)
                     .entity(created)
                     .build();
@@ -60,7 +63,7 @@ public class EmployeeResource {
     @Path("/{id}")
     public Response updateEmployee(@PathParam("id") String id, Employee employee) {
         try {
-            boolean updated = repository.update(new ObjectId(id), employee);
+            boolean updated = employeeService.update(new ObjectId(id), employee);
             if (updated) {
                 return Response.ok(employee).build();
             }
@@ -78,7 +81,7 @@ public class EmployeeResource {
     @Path("/{id}")
     public Response deleteEmployee(@PathParam("id") String id) {
         try {
-            boolean deleted = repository.delete(new ObjectId(id));
+            boolean deleted = employeeService.delete(new ObjectId(id));
             if (deleted) {
                 return Response.noContent().build();
             }

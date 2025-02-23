@@ -18,7 +18,7 @@
   </properties>
 
   <dependencies>
-<dependency>
+    <dependency>
       <groupId>jakarta.platform</groupId>
       <artifactId>jakarta.jakartaee-web-api</artifactId>
       <version>11.0.0-M4</version>
@@ -29,7 +29,7 @@
       <version>11.0.0-M4</version>
       <scope>provided</scope>
     </dependency>
-<dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.version}</version>
@@ -46,15 +46,48 @@
         <artifactId>mongodb-driver-sync</artifactId>
         <version>4.10.2</version>
     </dependency>
+    <dependency>
+        <groupId>jakarta.ejb</groupId>
+        <artifactId>jakarta.ejb-api</artifactId>
+        <version>4.0.1</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>jakarta.enterprise</groupId>
+        <artifactId>jakarta.enterprise.cdi-api</artifactId>
+        <version>4.0.1</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>jakarta.persistence</groupId>
+        <artifactId>jakarta.persistence-api</artifactId>
+        <version>3.1.0</version>
+        <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
-<plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.4.0</version>
-      </plugin>    </plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>3.2.0</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.4.0</version>
+
+<!--            <configuration>-->
+<!--                <webResources>-->
+<!--                    <resource>-->
+<!--                        <directory>src/main/webapp</directory>-->
+<!--                    </resource>-->
+<!--                </webResources>-->
+<!--            </configuration>-->
+            
+        </plugin>
+    </plugins>
   </build>
 </project>
 

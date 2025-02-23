@@ -1,7 +1,8 @@
 package com.hrms.controller;
 
 import com.hrms.model.Position;
-import com.hrms.repository.PositionRepository;
+import com.hrms.service.PositionService;
+import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -11,12 +12,14 @@ import org.bson.types.ObjectId;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PositionResource {
-    private final PositionRepository repository = new PositionRepository();
+
+    @EJB
+    private PositionService positionService;
 
     @GET
     public Response getAllPositions() {
         try {
-            return Response.ok(repository.findAll()).build();
+            return Response.ok(positionService.findAll()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Lỗi khi lấy danh sách vị trí: " + e.getMessage())
@@ -28,7 +31,7 @@ public class PositionResource {
     @Path("/{id}")
     public Response getPositionById(@PathParam("id") String id) {
         try {
-            Position position = repository.findById(new ObjectId(id));
+            Position position = positionService.findById(new ObjectId(id));
             if (position != null) {
                 return Response.ok(position).build();
             }
@@ -45,7 +48,7 @@ public class PositionResource {
     @POST
     public Response createPosition(Position position) {
         try {
-            Position created = repository.create(position);
+            Position created = positionService.create(position);
             return Response.status(Response.Status.CREATED)
                     .entity(created)
                     .build();
@@ -60,7 +63,7 @@ public class PositionResource {
     @Path("/{id}")
     public Response updatePosition(@PathParam("id") String id, Position position) {
         try {
-            boolean updated = repository.update(new ObjectId(id), position);
+            boolean updated = positionService.update(new ObjectId(id), position);
             if (updated) {
                 return Response.ok(position).build();
             }
@@ -78,7 +81,7 @@ public class PositionResource {
     @Path("/{id}")
     public Response deletePosition(@PathParam("id") String id) {
         try {
-            boolean deleted = repository.delete(new ObjectId(id));
+            boolean deleted = positionService.delete(new ObjectId(id));
             if (deleted) {
                 return Response.noContent().build();
             }

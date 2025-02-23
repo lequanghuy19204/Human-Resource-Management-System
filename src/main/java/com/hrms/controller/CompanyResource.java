@@ -1,7 +1,8 @@
 package com.hrms.controller;
 
 import com.hrms.model.Company;
-import com.hrms.repository.CompanyRepository;
+import com.hrms.service.CompanyService;
+import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -11,12 +12,14 @@ import org.bson.types.ObjectId;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CompanyResource {
-    private final CompanyRepository repository = new CompanyRepository();
+
+    @EJB
+    private CompanyService companyService;
 
     @GET
     public Response getAllCompanies() {
         try {
-            return Response.ok(repository.findAll()).build();
+            return Response.ok(companyService.findAll()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Lỗi khi lấy danh sách công ty: " + e.getMessage())
@@ -28,7 +31,7 @@ public class CompanyResource {
     @Path("/{id}")
     public Response getCompanyById(@PathParam("id") String id) {
         try {
-            Company company = repository.findById(new ObjectId(id));
+            Company company = companyService.findById(new ObjectId(id));
             if (company != null) {
                 return Response.ok(company).build();
             }
@@ -45,7 +48,7 @@ public class CompanyResource {
     @POST
     public Response createCompany(Company company) {
         try {
-            Company created = repository.create(company);
+            Company created = companyService.create(company);
             return Response.status(Response.Status.CREATED)
                     .entity(created)
                     .build();
@@ -60,7 +63,7 @@ public class CompanyResource {
     @Path("/{id}")
     public Response updateCompany(@PathParam("id") String id, Company company) {
         try {
-            boolean updated = repository.update(new ObjectId(id), company);
+            boolean updated = companyService.update(new ObjectId(id), company);
             if (updated) {
                 return Response.ok(company).build();
             }
@@ -78,7 +81,7 @@ public class CompanyResource {
     @Path("/{id}")
     public Response deleteCompany(@PathParam("id") String id) {
         try {
-            boolean deleted = repository.delete(new ObjectId(id));
+            boolean deleted = companyService.delete(new ObjectId(id));
             if (deleted) {
                 return Response.noContent().build();
             }

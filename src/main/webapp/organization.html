@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Tổ chức</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Danh sách Tổ chức</h2>
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#organizationModal">
+            Thêm Tổ chức
+        </button>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tên tổ chức</th>
+                    <th>Số lượng nhân viên</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="organizationList">
+                <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal Thêm/Sửa Tổ chức -->
+    <div class="modal fade" id="organizationModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm/Sửa Tổ chức</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="organizationForm">
+                        <input type="hidden" id="organizationId">
+                        <div class="mb-3">
+                            <label class="form-label">Tên tổ chức</label>
+                            <input type="text" class="form-control" id="organizationName" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="saveOrganization()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/organization.js"></script>
+</body>
+</html> 

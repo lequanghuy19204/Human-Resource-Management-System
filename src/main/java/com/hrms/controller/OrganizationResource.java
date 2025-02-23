@@ -1,7 +1,8 @@
 package com.hrms.controller;
 
 import com.hrms.model.Organization;
-import com.hrms.repository.OrganizationRepository;
+import com.hrms.service.OrganizationService;
+import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -11,12 +12,14 @@ import org.bson.types.ObjectId;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class OrganizationResource {
-    private final OrganizationRepository repository = new OrganizationRepository();
+
+    @EJB
+    private OrganizationService organizationService;
 
     @GET
     public Response getAllOrganizations() {
         try {
-            return Response.ok(repository.findAll()).build();
+            return Response.ok(organizationService.findAll()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Lỗi khi lấy danh sách tổ chức: " + e.getMessage())
@@ -28,9 +31,9 @@ public class OrganizationResource {
     @Path("/{id}")
     public Response getOrganizationById(@PathParam("id") String id) {
         try {
-            Organization org = repository.findById(new ObjectId(id));
-            if (org != null) {
-                return Response.ok(org).build();
+            Organization organization = organizationService.findById(new ObjectId(id));
+            if (organization != null) {
+                return Response.ok(organization).build();
             }
             return Response.status(Response.Status.NOT_FOUND)
                     .entity("Không tìm thấy tổ chức với ID: " + id)
@@ -45,7 +48,7 @@ public class OrganizationResource {
     @POST
     public Response createOrganization(Organization organization) {
         try {
-            Organization created = repository.create(organization);
+            Organization created = organizationService.create(organization);
             return Response.status(Response.Status.CREATED)
                     .entity(created)
                     .build();
@@ -60,7 +63,7 @@ public class OrganizationResource {
     @Path("/{id}")
     public Response updateOrganization(@PathParam("id") String id, Organization organization) {
         try {
-            boolean updated = repository.update(new ObjectId(id), organization);
+            boolean updated = organizationService.update(new ObjectId(id), organization);
             if (updated) {
                 return Response.ok(organization).build();
             }
@@ -78,7 +81,7 @@ public class OrganizationResource {
     @Path("/{id}")
     public Response deleteOrganization(@PathParam("id") String id) {
         try {
-            boolean deleted = repository.delete(new ObjectId(id));
+            boolean deleted = organizationService.delete(new ObjectId(id));
             if (deleted) {
                 return Response.noContent().build();
             }

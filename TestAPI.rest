@@ -1,0 +1,232 @@
+### Configuration
+@baseUrl = http://localhost:8080/Human-Resource-Management-System-1.0-SNAPSHOT/api
+
+### Company APIs ###
+
+# Get all companies
+
+###
+GET {{baseUrl}}/companies
+
+###
+# Get company by ID
+GET {{baseUrl}}/companies/67b747d5a149c44917f156ad
+
+###
+
+# Create new company
+POST {{baseUrl}}/companies
+Content-Type: application/json
+
+{
+    "name": "Company C",
+    "description": "Công ty con của tập đoàn"
+}
+
+###
+# Update company
+PUT {{baseUrl}}/companies/67b747d5a149c44917f156ad
+Content-Type: application/json
+
+{
+    "name": "Company A Updated",
+    "description": "Công ty mẹ quản lý các tổ chức nội bộ (Updated)"
+}
+
+###
+# Delete company
+DELETE {{baseUrl}}/companies/67b747d5a149c44917f156ad
+
+###
+### Organization APIs ###
+
+# Get all organizations
+GET {{baseUrl}}/organizations
+
+###
+# Get organization by ID
+GET {{baseUrl}}/organizations/67b7497ba149c44917f156b4
+
+###
+# Create new organization
+POST {{baseUrl}}/organizations
+Content-Type: application/json
+
+{
+    "companyId": "67b747d5a149c44917f156ad",
+    "name": "Finance Department",
+    "positionIds": [
+        "64a3f5a8a6e7e0012345678a",
+        "64a3f5a8a6e7e0012345678b"
+    ]
+}
+
+###
+# Update organization
+PUT {{baseUrl}}/organizations/67b7497ba149c44917f156b4
+Content-Type: application/json
+
+{
+    "companyId": "67b747d5a149c44917f156ad",
+    "name": "HR Department Updated",
+    "positionIds": [
+        "64a3f5a8a6e7e0012345678a",
+        "64a3f5a8a6e7e0012345678b"
+    ]
+}
+
+###
+# Delete organization
+DELETE {{baseUrl}}/organizations/67b7497ba149c44917f156b4
+
+### Position APIs ###
+
+# Get all positions
+GET {{baseUrl}}/positions
+
+###
+# Get position by ID
+GET {{baseUrl}}/positions/64a3f5a8a6e7e0012345678a
+
+###
+# Create new position
+POST {{baseUrl}}/positions
+Content-Type: application/json
+
+{
+    "organization_id": "67b7497ba149c44917f156b4",
+    "name": "Senior Developer",
+    "description": "Responsible for complex development tasks",
+    "base_salary": 8000.0,
+    "permissions": [
+        "MANAGE_TASKS",
+        "REVIEW_CODE",
+        "MANAGE_PROJECTS"
+    ]
+}
+
+###
+# Update position
+PUT {{baseUrl}}/positions/64a3f5a8a6e7e0012345678a
+Content-Type: application/json
+
+{
+    "organization_id": "67b7497ba149c44917f156b4",
+    "name": "Senior Developer Updated",
+    "description": "Lead complex development tasks and mentor junior developers",
+    "base_salary": 8500.0,
+    "permissions": [
+        "MANAGE_TASKS",
+        "REVIEW_CODE",
+        "MANAGE_PROJECTS",
+        "MENTOR_DEVELOPERS"
+    ]
+}
+
+###
+
+# Delete position
+DELETE {{baseUrl}}/positions/64a3f5a8a6e7e0012345678a
+
+### Employee APIs ###
+
+# Get all employees
+GET {{baseUrl}}/employees
+
+###
+# Get employee by ID
+GET {{baseUrl}}/employees/64a3f5a8a6e7e0012345678c
+
+###
+# Create new employee
+POST {{baseUrl}}/employees
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "position_id": "64a3f5a8a6e7e0012345678a",
+    "organization_id": "67b7497ba149c44917f156b4",
+    "company_id": "67b747d5a149c44917f156ad",
+    "manager_id": "64a3f5a8a6e7e00000000000",
+    "phone": "123-456-7890",
+    "status": "WORKING",
+    "overtime_hours": 10,
+    "late_hours": 5,
+    "absent_days": 0,
+    "account_id": "64a3f5a8a6e7e0012345678d"
+}
+
+###
+# Update employee
+PUT {{baseUrl}}/employees/64a3f5a8a6e7e0012345678c
+Content-Type: application/json
+
+{
+    "name": "John Doe Updated",
+    "position_id": "64a3f5a8a6e7e0012345678a",
+    "organization_id": "67b7497ba149c44917f156b4",
+    "company_id": "67b747d5a149c44917f156ad",
+    "manager_id": "64a3f5a8a6e7e00000000000",
+    "phone": "123-456-7890",
+    "status": "WORKING",
+    "overtime_hours": 15,
+    "late_hours": 3,
+    "absent_days": 1,
+    "account_id": "64a3f5a8a6e7e0012345678d"
+}
+
+###
+# Delete employee
+DELETE {{baseUrl}}/employees/64a3f5a8a6e7e0012345678c
+
+
+### Training Program APIs ###
+
+# Get all training programs
+GET {{baseUrl}}/training-programs
+
+###
+# Get training program by ID
+GET {{baseUrl}}/training-programs/64a3f5a8a6e7e00123456793
+
+###
+# Create new training program
+POST {{baseUrl}}/training-programs
+Content-Type: application/json
+
+{
+    "name": "Leadership Training",
+    "description": "Training for leadership skills",
+    "start": "2023-11-01T09:00:00Z",
+    "end": "2023-11-05T17:00:00Z",
+    "location": "Conference Room A",
+    "trainer_id": "64a3f5a8a6e7e0012345678c",
+    "participant_ids": [
+        "64a3f5a8a6e7e0012345678f",
+        "64a3f5a8a6e7e00123456794"
+    ]
+}
+
+###
+
+# Update training program
+PUT {{baseUrl}}/training-programs/64a3f5a8a6e7e00123456793
+Content-Type: application/json
+
+{
+    "name": "Leadership Training Updated",
+    "description": "Advanced training for leadership skills",
+    "start": "2023-11-01T09:00:00Z",
+    "end": "2023-11-05T17:00:00Z",
+    "location": "Conference Room B",
+    "trainer_id": "64a3f5a8a6e7e0012345678c",
+    "participant_ids": [
+        "64a3f5a8a6e7e0012345678f",
+        "64a3f5a8a6e7e00123456794"
+    ]
+}
+
+###
+
+# Delete training program
+DELETE {{baseUrl}}/training-programs/64a3f5a8a6e7e00123456793

@@ -1,7 +1,8 @@
 package com.hrms.controller;
 
 import com.hrms.model.TrainingProgram;
-import com.hrms.repository.TrainingProgramRepository;
+import com.hrms.service.TrainingProgramService;
+import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -11,12 +12,14 @@ import org.bson.types.ObjectId;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class TrainingProgramResource {
-    private final TrainingProgramRepository repository = new TrainingProgramRepository();
+
+    @EJB
+    private TrainingProgramService trainingProgramService;
 
     @GET
     public Response getAllTrainingPrograms() {
         try {
-            return Response.ok(repository.findAll()).build();
+            return Response.ok(trainingProgramService.findAll()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Lỗi khi lấy danh sách chương trình đào tạo: " + e.getMessage())
@@ -28,7 +31,7 @@ public class TrainingProgramResource {
     @Path("/{id}")
     public Response getTrainingProgramById(@PathParam("id") String id) {
         try {
-            TrainingProgram program = repository.findById(new ObjectId(id));
+            TrainingProgram program = trainingProgramService.findById(new ObjectId(id));
             if (program != null) {
                 return Response.ok(program).build();
             }
@@ -45,7 +48,7 @@ public class TrainingProgramResource {
     @POST
     public Response createTrainingProgram(TrainingProgram program) {
         try {
-            TrainingProgram created = repository.create(program);
+            TrainingProgram created = trainingProgramService.create(program);
             return Response.status(Response.Status.CREATED)
                     .entity(created)
                     .build();
@@ -60,7 +63,7 @@ public class TrainingProgramResource {
     @Path("/{id}")
     public Response updateTrainingProgram(@PathParam("id") String id, TrainingProgram program) {
         try {
-            boolean updated = repository.update(new ObjectId(id), program);
+            boolean updated = trainingProgramService.update(new ObjectId(id), program);
             if (updated) {
                 return Response.ok(program).build();
             }
@@ -78,7 +81,7 @@ public class TrainingProgramResource {
     @Path("/{id}")
     public Response deleteTrainingProgram(@PathParam("id") String id) {
         try {
-            boolean deleted = repository.delete(new ObjectId(id));
+            boolean deleted = trainingProgramService.delete(new ObjectId(id));
             if (deleted) {
                 return Response.noContent().build();
             }

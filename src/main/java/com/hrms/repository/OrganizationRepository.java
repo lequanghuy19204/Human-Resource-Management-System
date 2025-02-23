@@ -2,6 +2,7 @@ package com.hrms.repository;
 
 import com.hrms.config.MongoDBConnection;
 import com.hrms.model.Organization;
+import jakarta.enterprise.context.ApplicationScoped;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ApplicationScoped
 public class OrganizationRepository {
     private final MongoCollection<Document> collection;
 
