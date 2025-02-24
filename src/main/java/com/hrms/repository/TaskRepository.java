@@ -66,10 +66,18 @@ public class TaskRepository {
         task.setName(doc.getString("name"));
         task.setDescription(doc.getString("description"));
 
-        // Chuyển đổi danh sách ObjectId từ `assigned_to` sang String
-        List<String> assignedTo = doc.getList("assigned_to", ObjectId.class).stream()
-                .map(ObjectId::toString)
-                .toList();
+        // Chuyển đổi danh sách ObjectId từ `assigned_to` sang String, thêm kiểm tra kiểu
+        List<?> rawAssignedTo = doc.get("assigned_to", List.class);
+        List<String> assignedTo = new ArrayList<>();
+        if (rawAssignedTo != null) {
+            for (Object item : rawAssignedTo) {
+                if (item instanceof ObjectId) {
+                    assignedTo.add(item.toString());
+                } else {
+                    System.err.println("Invalid element in 'assigned_to': " + item);
+                }
+            }
+        }
         task.setAssigned_to(assignedTo);
 
         task.setStatus(doc.getString("status"));
@@ -86,9 +94,16 @@ public class TaskRepository {
         doc.put("description", task.getDescription());
 
         // Chuyển đổi danh sách String sang ObjectId cho `assigned_to`
-        List<ObjectId> assignedTo = task.getAssigned_to().stream()
-                .map(ObjectId::new)
-                .toList();
+        List<ObjectId> assignedTo = new ArrayList<>();
+        if (task.getAssigned_to() != null) {
+            for (String id : task.getAssigned_to()) {
+                try {
+                    assignedTo.add(new ObjectId(id));
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Invalid ObjectId string: " + id);
+                }
+            }
+        }
         doc.put("assigned_to", assignedTo);
 
         doc.put("status", task.getStatus());
