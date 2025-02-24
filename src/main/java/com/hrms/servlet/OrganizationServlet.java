@@ -25,24 +25,20 @@ public class OrganizationServlet extends HttpServlet {
         String pathInfo = request.getPathInfo();
 
         if (pathInfo == null || pathInfo.equals("/")) {
-            // Hiển thị danh sách tổ chức
             List<Organization> organizations = organizationService.findAll();
             request.setAttribute("organizations", organizations);
             request.getRequestDispatcher("/WEB-INF/views/organization/list.jsp")
                     .forward(request, response);
         } else if (pathInfo.equals("/create")) {
-            // Hiển thị form tạo mới
             request.getRequestDispatcher("/WEB-INF/views/organization/form.jsp")
                     .forward(request, response);
         } else if (pathInfo.equals("/edit")) {
-            // Hiển thị form chỉnh sửa
             String id = request.getParameter("id");
             Organization organization = organizationService.findById(new ObjectId(id));
             request.setAttribute("organization", organization);
             request.getRequestDispatcher("/WEB-INF/views/organization/form.jsp")
                     .forward(request, response);
         } else if (pathInfo.equals("/employees")) {
-            // Chuyển đến trang danh sách nhân viên của tổ chức
             String orgId = request.getParameter("id");
             response.sendRedirect(request.getContextPath() + "/employees?organizationId=" + orgId);
         }

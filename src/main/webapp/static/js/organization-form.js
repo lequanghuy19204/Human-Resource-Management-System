@@ -1,12 +1,10 @@
 const API_URL = '/Human-Resource-Management-System-1.0-SNAPSHOT/api';
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // Khởi tạo Select2
     $('#companyId, #positionIds').select2({
         theme: 'bootstrap-5'
     });
 
-    // Load dữ liệu
     await Promise.all([
         loadCompanies(),
         loadPositions()
@@ -27,7 +25,6 @@ async function loadCompanies() {
             select.add(option);
         });
 
-        // Set giá trị nếu đang edit
         const organization = document.getElementById('organizationId').value;
         if (organization) {
             select.value = organization.companyId;
@@ -48,7 +45,6 @@ async function loadPositions() {
             select.add(option);
         });
 
-        // Set giá trị nếu đang edit
         const organization = document.getElementById('organizationId').value;
         if (organization && organization.positionIds) {
             organization.positionIds.forEach(id => {
