@@ -1,6 +1,6 @@
-package com.example.controller;
+package com.hrms.controller;
 
-import com.example.config.MongoDBConnection;
+import com.hrms.config.MongoDBConnection;
 import com.mongodb.client.MongoDatabase;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
