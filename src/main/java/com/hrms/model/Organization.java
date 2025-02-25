@@ -1,12 +1,9 @@
 package com.hrms.model;
 
-import java.util.List;
-
 public class Organization {
     private String id;
     private String companyId;
     private String name;
-    private List<String> positionIds;
 
     // Constructors
     public Organization() {
@@ -35,13 +32,5 @@ public class Organization {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<String> getPositionIds() {
-        return positionIds;
-    }
-
-    public void setPositionIds(List<String> positionIds) {
-        this.positionIds = positionIds;
     }
 }

@@ -1,14 +1,16 @@
 package com.hrms.model;
 
+import java.util.List;
+
 public class Employee {
     private String _id;
     private String name;
-    private String position_id;
+    private String position_name;
+    private List<String> permissions;
     private String organization_id;
     private String company_id;
     private String manager_id;
     private String phone;
-    private String status;
     private int overtime_hours;
     private int late_hours;
     private int absent_days;
@@ -35,12 +37,20 @@ public class Employee {
         this.name = name;
     }
 
-    public String getPosition_id() {
-        return position_id;
+    public String getPosition_name() {
+        return position_name;
     }
 
-    public void setPosition_id(String position_id) {
-        this.position_id = position_id;
+    public void setPosition_name(String position_name) {
+        this.position_name = position_name;
+    }
+
+    public List<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<String> permissions) {
+        this.permissions = permissions;
     }
 
     public String getOrganization_id() {
@@ -73,14 +83,6 @@ public class Employee {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public int getOvertime_hours() {

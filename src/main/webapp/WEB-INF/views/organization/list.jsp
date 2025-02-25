@@ -6,6 +6,6 @@
     <jsp:param name="active" value="organization" />
     <jsp:param name="content" value="../organization/list-content.jsp" />
     <jsp:param name="scripts" value="
-        <script src='../static/js/organization.js'></script>
+        <script src='${pageContext.request.contextPath}/static/js/organization.js'></script>
     " />
 </jsp:include> 

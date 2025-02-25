@@ -56,14 +56,6 @@ public class OrganizationRepository {
         org.setId(doc.getObjectId("_id").toString());
         org.setCompanyId(doc.getObjectId("company_id").toString());
         org.setName(doc.getString("name"));
-
-        List<ObjectId> positionObjectIds = (List<ObjectId>) doc.get("position_ids");
-        if (positionObjectIds != null) {
-            List<String> positionIds = positionObjectIds.stream()
-                    .map(ObjectId::toString)
-                    .collect(Collectors.toList());
-            org.setPositionIds(positionIds);
-        }
         return org;
     }
 
@@ -74,13 +66,6 @@ public class OrganizationRepository {
         }
         doc.append("company_id", new ObjectId(org.getCompanyId()));
         doc.append("name", org.getName());
-
-        if (org.getPositionIds() != null) {
-            List<ObjectId> positionIds = org.getPositionIds().stream()
-                    .map(ObjectId::new)
-                    .collect(Collectors.toList());
-            doc.append("position_ids", positionIds);
-        }
         return doc;
     }
 }

@@ -54,16 +54,34 @@ public class EmployeeRepository {
         Employee employee = new Employee();
         employee.set_id(doc.getObjectId("_id").toString());
         employee.setName(doc.getString("name"));
-        employee.setPosition_id(doc.getObjectId("position_id").toString());
-        employee.setOrganization_id(doc.getObjectId("organization_id").toString());
-        employee.setCompany_id(doc.getObjectId("company_id").toString());
-        employee.setManager_id(doc.getObjectId("manager_id").toString());
+        employee.setPosition_name(doc.getString("position_name"));
+        employee.setPermissions((List<String>) doc.get("permissions"));
+
+        ObjectId orgId = doc.getObjectId("organization_id");
+        if (orgId != null) {
+            employee.setOrganization_id(orgId.toString());
+        }
+
+        ObjectId companyId = doc.getObjectId("company_id");
+        if (companyId != null) {
+            employee.setCompany_id(companyId.toString());
+        }
+
+        ObjectId managerId = doc.getObjectId("manager_id");
+        if (managerId != null) {
+            employee.setManager_id(managerId.toString());
+        }
+
         employee.setPhone(doc.getString("phone"));
-        employee.setStatus(doc.getString("status"));
         employee.setOvertime_hours(doc.getInteger("overtime_hours", 0));
         employee.setLate_hours(doc.getInteger("late_hours", 0));
         employee.setAbsent_days(doc.getInteger("absent_days", 0));
-        employee.setAccount_id(doc.getObjectId("account_id").toString());
+
+        ObjectId accountId = doc.getObjectId("account_id");
+        if (accountId != null) {
+            employee.setAccount_id(accountId.toString());
+        }
+
         return employee;
     }
 
@@ -73,16 +91,30 @@ public class EmployeeRepository {
             doc.append("_id", new ObjectId(employee.get_id()));
         }
         doc.append("name", employee.getName());
-        doc.append("position_id", new ObjectId(employee.getPosition_id()));
-        doc.append("organization_id", new ObjectId(employee.getOrganization_id()));
-        doc.append("company_id", new ObjectId(employee.getCompany_id()));
-        doc.append("manager_id", new ObjectId(employee.getManager_id()));
+        doc.append("position_name", employee.getPosition_name());
+        doc.append("permissions", employee.getPermissions());
+
+        if (employee.getOrganization_id() != null) {
+            doc.append("organization_id", new ObjectId(employee.getOrganization_id()));
+        }
+
+        if (employee.getCompany_id() != null) {
+            doc.append("company_id", new ObjectId(employee.getCompany_id()));
+        }
+
+        if (employee.getManager_id() != null) {
+            doc.append("manager_id", new ObjectId(employee.getManager_id()));
+        }
+
         doc.append("phone", employee.getPhone());
-        doc.append("status", employee.getStatus());
         doc.append("overtime_hours", employee.getOvertime_hours());
         doc.append("late_hours", employee.getLate_hours());
         doc.append("absent_days", employee.getAbsent_days());
-        doc.append("account_id", new ObjectId(employee.getAccount_id()));
+
+        if (employee.getAccount_id() != null) {
+            doc.append("account_id", new ObjectId(employee.getAccount_id()));
+        }
+
         return doc;
     }
 }

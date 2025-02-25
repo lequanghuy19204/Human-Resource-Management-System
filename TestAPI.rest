@@ -3,9 +3,45 @@
 
 ### Company APIs ###
 
-# Get all companies
+# Get all accounts
+GET {{baseUrl}}/accounts
 
 ###
+# Get account by ID
+GET {{baseUrl}}/accounts/64a3f5a8a6e7e0012345678d
+
+###
+# Get account by username
+GET {{baseUrl}}/accounts/username/john.doe
+
+###
+# Create new account
+POST {{baseUrl}}/accounts
+Content-Type: application/json
+
+{
+    "employee_id": "64a3f5a8a6e7e0012345678c",
+    "username": "new.user",
+    "password": "password123"
+}
+
+###
+# Update account
+PUT {{baseUrl}}/accounts/64a3f5a8a6e7e0012345678d
+Content-Type: application/json
+
+{
+    "employee_id": "64a3f5a8a6e7e0012345678c",
+    "username": "john.doe",
+    "password": "new_password"
+}
+
+###
+# Delete account
+DELETE {{baseUrl}}/accounts/64a3f5a8a6e7e0012345678d
+
+###
+# Get all companies
 GET {{baseUrl}}/companies
 
 ###
@@ -13,7 +49,6 @@ GET {{baseUrl}}/companies
 GET {{baseUrl}}/companies/67b747d5a149c44917f156ad
 
 ###
-
 # Create new company
 POST {{baseUrl}}/companies
 Content-Type: application/json
@@ -54,11 +89,7 @@ Content-Type: application/json
 
 {
     "companyId": "67b747d5a149c44917f156ad",
-    "name": "Finance Department",
-    "positionIds": [
-        "64a3f5a8a6e7e0012345678a",
-        "64a3f5a8a6e7e0012345678b"
-    ]
+    "name": "Finance Department"
 }
 
 ###
@@ -68,65 +99,12 @@ Content-Type: application/json
 
 {
     "companyId": "67b747d5a149c44917f156ad",
-    "name": "HR Department Updated",
-    "positionIds": [
-        "64a3f5a8a6e7e0012345678a",
-        "64a3f5a8a6e7e0012345678b"
-    ]
+    "name": "HR Department Updated"
 }
 
 ###
 # Delete organization
 DELETE {{baseUrl}}/organizations/67b7497ba149c44917f156b4
-
-### Position APIs ###
-
-# Get all positions
-GET {{baseUrl}}/positions
-
-###
-# Get position by ID
-GET {{baseUrl}}/positions/64a3f5a8a6e7e0012345678a
-
-###
-# Create new position
-POST {{baseUrl}}/positions
-Content-Type: application/json
-
-{
-    "organization_id": "67b7497ba149c44917f156b4",
-    "name": "Senior Developer",
-    "description": "Responsible for complex development tasks",
-    "base_salary": 8000.0,
-    "permissions": [
-        "MANAGE_TASKS",
-        "REVIEW_CODE",
-        "MANAGE_PROJECTS"
-    ]
-}
-
-###
-# Update position
-PUT {{baseUrl}}/positions/64a3f5a8a6e7e0012345678a
-Content-Type: application/json
-
-{
-    "organization_id": "67b7497ba149c44917f156b4",
-    "name": "Senior Developer Updated",
-    "description": "Lead complex development tasks and mentor junior developers",
-    "base_salary": 8500.0,
-    "permissions": [
-        "MANAGE_TASKS",
-        "REVIEW_CODE",
-        "MANAGE_PROJECTS",
-        "MENTOR_DEVELOPERS"
-    ]
-}
-
-###
-
-# Delete position
-DELETE {{baseUrl}}/positions/64a3f5a8a6e7e0012345678a
 
 ### Employee APIs ###
 
@@ -144,10 +122,18 @@ Content-Type: application/json
 
 {
     "name": "John Doe",
-    "position_id": "64a3f5a8a6e7e0012345678a",
+    "position_name": "Manager",
+    "permissions": [
+        "MANAGE_ORGANIZATION",
+        "MANAGE_EMPLOYEES",
+        "MANAGE_TASKS",
+        "MANAGE_SALARY",
+        "MANAGE_TRAINING",
+        "MANAGE_PERFORMANCE"
+    ],
     "organization_id": "67b7497ba149c44917f156b4",
     "company_id": "67b747d5a149c44917f156ad",
-    "manager_id": "64a3f5a8a6e7e00000000000",
+    "manager_id": null,
     "phone": "123-456-7890",
     "status": "WORKING",
     "overtime_hours": 10,
@@ -163,10 +149,18 @@ Content-Type: application/json
 
 {
     "name": "John Doe Updated",
-    "position_id": "64a3f5a8a6e7e0012345678a",
+    "position_name": "Senior Manager",
+    "permissions": [
+        "MANAGE_ORGANIZATION",
+        "MANAGE_EMPLOYEES",
+        "MANAGE_TASKS",
+        "MANAGE_SALARY",
+        "MANAGE_TRAINING",
+        "MANAGE_PERFORMANCE"
+    ],
     "organization_id": "67b7497ba149c44917f156b4",
     "company_id": "67b747d5a149c44917f156ad",
-    "manager_id": "64a3f5a8a6e7e00000000000",
+    "manager_id": null,
     "phone": "123-456-7890",
     "status": "WORKING",
     "overtime_hours": 15,
@@ -178,7 +172,6 @@ Content-Type: application/json
 ###
 # Delete employee
 DELETE {{baseUrl}}/employees/64a3f5a8a6e7e0012345678c
-
 
 ### Training Program APIs ###
 
@@ -208,7 +201,6 @@ Content-Type: application/json
 }
 
 ###
-
 # Update training program
 PUT {{baseUrl}}/training-programs/64a3f5a8a6e7e00123456793
 Content-Type: application/json
@@ -227,6 +219,46 @@ Content-Type: application/json
 }
 
 ###
-
 # Delete training program
 DELETE {{baseUrl}}/training-programs/64a3f5a8a6e7e00123456793
+
+### Account APIs ###
+
+# Get all accounts
+GET {{baseUrl}}/accounts
+
+###
+# Get account by ID
+GET {{baseUrl}}/accounts/64a3f5a8a6e7e0012345678d
+
+###
+# Get account by username
+GET {{baseUrl}}/accounts/username/john.doe
+
+###
+# Create new account
+POST {{baseUrl}}/accounts
+Content-Type: application/json
+
+{
+    "employee_id": "64a3f5a8a6e7e0012345678c",
+    "username": "new.user",
+    "password": "password123",
+    "roles": ["VIEW_PROFILE", "MANAGE_TASKS"]
+}
+
+###
+# Update account
+PUT {{baseUrl}}/accounts/64a3f5a8a6e7e0012345678d
+Content-Type: application/json
+
+{
+    "employee_id": "64a3f5a8a6e7e0012345678c",
+    "username": "john.doe",
+    "password": "new_password",
+    "roles": ["MANAGE_ORGANIZATION", "MANAGE_EMPLOYEES", "MANAGE_TASKS"]
+}
+
+###
+# Delete account
+DELETE {{baseUrl}}/accounts/64a3f5a8a6e7e0012345678d
