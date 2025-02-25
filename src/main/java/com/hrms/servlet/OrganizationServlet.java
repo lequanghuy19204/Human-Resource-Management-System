@@ -20,27 +20,45 @@ public class OrganizationServlet extends HttpServlet {
     private OrganizationService organizationService;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String pathInfo = request.getPathInfo();
 
-        if (pathInfo == null || pathInfo.equals("/")) {
-            List<Organization> organizations = organizationService.findAll();
-            request.setAttribute("organizations", organizations);
-            request.getRequestDispatcher("/WEB-INF/views/organization/list.jsp")
-                    .forward(request, response);
-        } else if (pathInfo.equals("/create")) {
-            request.getRequestDispatcher("/WEB-INF/views/organization/form.jsp")
-                    .forward(request, response);
-        } else if (pathInfo.equals("/edit")) {
-            String id = request.getParameter("id");
-            Organization organization = organizationService.findById(new ObjectId(id));
-            request.setAttribute("organization", organization);
-            request.getRequestDispatcher("/WEB-INF/views/organization/form.jsp")
-                    .forward(request, response);
-        } else if (pathInfo.equals("/employees")) {
-            String orgId = request.getParameter("id");
-            response.sendRedirect(request.getContextPath() + "/employees?organizationId=" + orgId);
+        String path = req.getPathInfo();
+
+        if (path == null || path.equals("/")) {
+            showAllOrganizations(req, resp);
+        } else if (path.equals("/create")) {
+            showCreateForm(req, resp);
+        } else if (path.equals("/edit")) {
+            showEditForm(req, resp);
+        } else if (path.equals("/employees")) {
+            redirectToEmployees(req, resp);
         }
+    }
+
+    private void showAllOrganizations(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        List<Organization> organizations = organizationService.findAll();
+        req.setAttribute("organizations", organizations);
+        req.getRequestDispatcher("/WEB-INF/views/organization/list.jsp").forward(req, resp);
+    }
+
+    private void showCreateForm(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        req.getRequestDispatcher("/WEB-INF/views/organization/form.jsp").forward(req, resp);
+    }
+
+    private void showEditForm(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        String id = req.getParameter("id");
+        Organization organization = organizationService.findById(new ObjectId(id));
+        req.setAttribute("organization", organization);
+        req.getRequestDispatcher("/WEB-INF/views/organization/form.jsp").forward(req, resp);
+    }
+
+    private void redirectToEmployees(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+        String orgId = req.getParameter("id");
+        resp.sendRedirect(req.getContextPath() + "/employees?organizationId=" + orgId);
     }
 }
