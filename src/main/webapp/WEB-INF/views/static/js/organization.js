@@ -1,4 +1,4 @@
-const API_URL = '/Human-Resource-Management-System-1.0-SNAPSHOT/api';
+const API_URL = 'http://localhost:8080/Human-Resource-Management-System-1.0-SNAPSHOT/api';
 let deleteOrgId = null;
 
 function deleteOrganization(id) {
