@@ -15,8 +15,7 @@
                 <thead>
                     <tr>
                         <th>Tên tổ chức</th>
-                        <th>Công ty</th>
-                        <th>Số lượng vị trí</th>
+                        <th>Số nhân viên</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -28,8 +27,7 @@
                                     ${org.name}
                                 </a>
                             </td>
-                            <td>${org.companyId}</td>
-                            <td>${org.positionIds.size()}</td>
+                            <td>${org.employeeCount}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button class="btn btn-sm btn-outline-primary" 

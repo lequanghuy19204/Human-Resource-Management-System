@@ -27,6 +27,7 @@
         "name": "John Doe",
         "position_name": "Manager",
         "permissions": [
+          "OWNER",
           "MANAGE_ORGANIZATION",
           "MANAGE_EMPLOYEES",
           "MANAGE_TASKS",

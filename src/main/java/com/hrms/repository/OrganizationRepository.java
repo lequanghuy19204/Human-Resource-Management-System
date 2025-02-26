@@ -51,6 +51,13 @@ public class OrganizationRepository {
         return result.getDeletedCount() > 0;
     }
 
+    public List<Organization> findByCompanyId(ObjectId companyId) {
+        List<Organization> organizations = new ArrayList<>();
+        collection.find(Filters.eq("company_id", companyId))
+                .forEach(doc -> organizations.add(documentToOrganization(doc)));
+        return organizations;
+    }
+
     private Organization documentToOrganization(Document doc) {
         Organization org = new Organization();
         org.setId(doc.getObjectId("_id").toString());

@@ -8,6 +8,8 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.bson.types.ObjectId;
 
+import java.util.List;
+
 @Path("/organizations")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -91,6 +93,19 @@ public class OrganizationResource {
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Lỗi khi xóa tổ chức: " + e.getMessage())
+                    .build();
+        }
+    }
+
+    @GET
+    @Path("/company/{companyId}")
+    public Response getOrganizationsByCompanyId(@PathParam("companyId") String companyId) {
+        try {
+            List<Organization> organizations = organizationService.findByCompanyId(new ObjectId(companyId));
+            return Response.ok(organizations).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Lỗi khi lấy danh sách tổ chức: " + e.getMessage())
                     .build();
         }
     }

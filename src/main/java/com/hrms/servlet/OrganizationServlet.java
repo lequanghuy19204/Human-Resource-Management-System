@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
@@ -23,10 +24,18 @@ public class OrganizationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        // Kiểm tra session
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("companyId") == null) {
+            resp.sendRedirect(req.getContextPath() + "/auth/login");
+            return;
+        }
+
         String path = req.getPathInfo();
+        String companyId = (String) session.getAttribute("companyId");
 
         if (path == null || path.equals("/")) {
-            showAllOrganizations(req, resp);
+            showAllOrganizations(req, resp, companyId);
         } else if (path.equals("/create")) {
             showCreateForm(req, resp);
         } else if (path.equals("/edit")) {
@@ -36,9 +45,9 @@ public class OrganizationServlet extends HttpServlet {
         }
     }
 
-    private void showAllOrganizations(HttpServletRequest req, HttpServletResponse resp)
+    private void showAllOrganizations(HttpServletRequest req, HttpServletResponse resp, String companyId)
             throws ServletException, IOException {
-        List<Organization> organizations = organizationService.findAll();
+        List<Organization> organizations = organizationService.findByCompanyId(new ObjectId(companyId));
         req.setAttribute("organizations", organizations);
         req.getRequestDispatcher("/WEB-INF/views/organization/list.jsp").forward(req, resp);
     }

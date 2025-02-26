@@ -38,4 +38,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     public boolean delete(ObjectId id) {
         return repository.delete(id);
     }
+
+    @Override
+    public List<Organization> findByCompanyId(ObjectId companyId) {
+        return repository.findByCompanyId(companyId);
+    }
 }

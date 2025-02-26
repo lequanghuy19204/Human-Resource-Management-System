@@ -16,4 +16,6 @@ public interface OrganizationService {
     boolean update(ObjectId id, Organization organization);
 
     boolean delete(ObjectId id);
+
+    List<Organization> findByCompanyId(ObjectId companyId);
 }
