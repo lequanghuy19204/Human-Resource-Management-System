@@ -17,7 +17,7 @@
             z-index: 100;
             padding: 48px 0 0;
             box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-            width: 280px;
+            width: 240px;
             background-color: #343a40;
         }
 
@@ -84,6 +84,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link ${param.active == 'employees' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/employees">
+                        <i class="bi bi-people-fill"></i>
+                        Quản lý Nhân viên
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link ${param.active == 'tasks' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/tasks">
                         <i class="bi bi-list-task"></i>
@@ -126,14 +133,14 @@
                     <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" 
                        data-bs-toggle="dropdown" aria-expanded="false">
                         <div style="width: 32px; height: 32px; background: white; border-radius: 50%;" class="me-2"></div>
-                        <strong>Lưu Trần Hoàng Phúc</strong>
+                        <strong>${sessionScope.employeeName}</strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/profile">
                             <i class="bi bi-person"></i> Hồ sơ
                         </a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">
+                        <li><a class="dropdown-item" href="#" id="logoutBtn">
                             <i class="bi bi-box-arrow-right"></i> Đăng xuất
                         </a></li>
                     </ul>
@@ -142,6 +149,25 @@
         </div>
     </nav>
 
+    <!-- Thêm modal xác nhận đăng xuất -->
+    <div class="modal fade" id="logoutModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận đăng xuất</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn đăng xuất không?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="logout()">Đăng xuất</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <main class="main-content">
         <jsp:include page="${param.content}" />
@@ -149,5 +175,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     ${param.scripts}
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById('logoutModal'));
+            modal.show();
+        });
+    
+        function logout() {
+            // Chuyển hướng đến servlet đăng xuất
+            window.location.href = '${pageContext.request.contextPath}/auth/logout';
+        }
+    </script>
 </body>
 </html> 

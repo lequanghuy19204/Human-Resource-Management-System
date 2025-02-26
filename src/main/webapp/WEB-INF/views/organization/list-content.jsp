@@ -8,44 +8,8 @@
     </button>
 </div>
 
-<div class="card">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Tên tổ chức</th>
-                        <th>Số nhân viên</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="org" items="${organizations}">
-                        <tr>
-                            <td>
-                                <a href="organizations/employees?id=${org.id}" class="text-decoration-none">
-                                    ${org.name}
-                                </a>
-                            </td>
-                            <td>${org.employeeCount}</td>
-                            <td>
-                                <div class="btn-group" role="group">
-                                    <button class="btn btn-sm btn-outline-primary" 
-                                            onclick="window.location.href='${pageContext.request.contextPath}/organizations/edit?id=${org.id}'">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger" 
-                                            onclick="deleteOrganization('${org.id}')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="organizationsContainer">
+    <!-- Nội dung sẽ được thêm bởi JavaScript -->
 </div>
 
 <!-- Modal Xác nhận xóa -->
@@ -65,4 +29,64 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
+
+<style>
+.org-card {
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+
+.org-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.org-info {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.org-actions {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.org-action-btn {
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+}
+
+.org-action-btn i {
+    font-size: 1.1rem;
+}
+
+.dropdown-menu {
+    z-index: 1000;
+}
+.dropdown .btn-link {
+    z-index: 2;
+    position: relative;
+}
+
+.dropdown {
+    position: static;
+}
+
+.card-body {
+    position: static;
+}
+
+.dropdown-menu {
+    position: absolute;
+    z-index: 9999 !important;
+}
+
+#organizationsContainer {
+    position: relative;
+}
+</style> 

@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 @ApplicationScoped
 public class EmployeeRepository {
@@ -48,6 +49,24 @@ public class EmployeeRepository {
     public boolean delete(ObjectId id) {
         DeleteResult result = collection.deleteOne(Filters.eq("_id", id));
         return result.getDeletedCount() > 0;
+    }
+
+    public List<Employee> findByCompanyId(ObjectId companyId) {
+        List<Employee> employees = new ArrayList<>();
+        collection.find(Filters.eq("company_id", companyId))
+                .forEach(doc -> employees.add(documentToEmployee(doc)));
+        return employees;
+    }
+
+    public List<Employee> findManagersByCompanyId(ObjectId companyId) {
+        List<Employee> managers = new ArrayList<>();
+        Document query = new Document("company_id", companyId)
+                .append("permissions", new Document("$in", Arrays.asList(
+                        "MANAGE_ORGANIZATION", "MANAGE_EMPLOYEES", "MANAGE_TASKS",
+                        "MANAGE_SALARY", "MANAGE_TRAINING", "MANAGE_PERFORMANCE")));
+
+        collection.find(query).forEach(doc -> managers.add(documentToEmployee(doc)));
+        return managers;
     }
 
     private Employee documentToEmployee(Document doc) {
