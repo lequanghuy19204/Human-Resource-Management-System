@@ -31,7 +31,7 @@
                             <td>
                                 <div class="btn-group" role="group">
                                     <button class="btn btn-sm btn-outline-primary" 
-                                            onclick="window.location.href='organizations/edit?id=${org.id}'">
+                                            onclick="window.location.href='${pageContext.request.contextPath}/organizations/edit?id=${org.id}'">
                                         <i class="bi bi-pencil"></i>
                                     </button>
                                     <button class="btn btn-sm btn-outline-danger" 

@@ -36,7 +36,7 @@ public class OrganizationRepository {
     public Organization create(Organization organization) {
         Document doc = organizationToDocument(organization);
         collection.insertOne(doc);
-        organization.setId(String.valueOf((ObjectId) doc.get("_id")));
+        organization.setId(doc.getObjectId("_id").toString());
         return organization;
     }
 

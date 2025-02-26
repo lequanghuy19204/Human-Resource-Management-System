@@ -3,7 +3,10 @@ package com.hrms.controller;
 import com.hrms.model.Organization;
 import com.hrms.service.OrganizationService;
 import jakarta.ejb.EJB;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.bson.types.ObjectId;
@@ -18,10 +21,15 @@ public class OrganizationResource {
     @EJB
     private OrganizationService organizationService;
 
+    @Context
+    private HttpServletRequest request;
+
     @GET
     public Response getAllOrganizations() {
         try {
-            return Response.ok(organizationService.findAll()).build();
+            HttpSession session = request.getSession(false);
+            String companyId = (String) session.getAttribute("companyId");
+            return Response.ok(organizationService.findByCompanyId(new ObjectId(companyId))).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Lỗi khi lấy danh sách tổ chức: " + e.getMessage())
@@ -50,6 +58,10 @@ public class OrganizationResource {
     @POST
     public Response createOrganization(Organization organization) {
         try {
+            HttpSession session = request.getSession(false);
+            String companyId = (String) session.getAttribute("companyId");
+            organization.setCompanyId(companyId);
+
             Organization created = organizationService.create(organization);
             return Response.status(Response.Status.CREATED)
                     .entity(created)
@@ -65,12 +77,16 @@ public class OrganizationResource {
     @Path("/{id}")
     public Response updateOrganization(@PathParam("id") String id, Organization organization) {
         try {
+            HttpSession session = request.getSession(false);
+            String companyId = (String) session.getAttribute("companyId");
+            organization.setCompanyId(companyId);
+
             boolean updated = organizationService.update(new ObjectId(id), organization);
             if (updated) {
                 return Response.ok(organization).build();
             }
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Không tìm thấy tổ chức để cập nhật với ID: " + id)
+                    .entity("Không tìm thấy tổ chức để cập nhật")
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -88,7 +104,7 @@ public class OrganizationResource {
                 return Response.noContent().build();
             }
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Không tìm thấy tổ chức để xóa với ID: " + id)
+                    .entity("Không tìm thấy tổ chức để xóa")
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)

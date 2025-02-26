@@ -54,11 +54,12 @@ document.getElementById('confirmDelete').addEventListener('click', async () => {
         });
 
         if (response.ok) {
-            loadOrganizations(); // Tải lại danh sách sau khi xóa
             const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
             modal.hide();
+            loadOrganizations(); // Tải lại danh sách sau khi xóa
         } else {
-            alert('Có lỗi xảy ra khi xóa tổ chức');
+            const data = await response.json();
+            alert(data.message || 'Có lỗi xảy ra khi xóa tổ chức');
         }
     } catch (error) {
         console.error('Error:', error);
