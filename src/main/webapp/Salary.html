@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salary Management</title>
+    <link rel="stylesheet" href="css/salary.css" />
+</head>
+<body>
+<header>
+    <h1>Salary Management</h1>
+</header>
+
+<main>
+    <!-- Danh sách Lương -->
+    <section id="salary-list">
+        <h2>Salaries</h2>
+        <div id="salaries-container">
+            <!-- Danh sách lương sẽ được hiển thị ở đây -->
+        </div>
+    </section>
+
+    <!-- Form Thêm/Sửa Lương -->
+    <section id="salary-form-section">
+        <h2 id="form-title">Create Salary Record</h2>
+        <form id="salary-form-element">
+            <!-- Hidden field để lưu ID trong trường hợp sửa -->
+            <input type="hidden" id="salary-id" />
+
+            <label for="employee-id">Employee ID:</label>
+            <input type="text" id="employee-id" placeholder="Employee ID" required />
+
+            <label for="working-days">Working Days:</label>
+            <input type="number" id="working-days" placeholder="Number of Working Days" required />
+
+            <label for="salary-amount">Salary Amount:</label>
+            <input type="number" id="salary-amount" placeholder="Salary Amount" step="0.01" required />
+
+            <label for="payment-date">Payment Date:</label>
+            <input type="date" id="payment-date" required />
+
+            <button type="submit">Save</button>
+            <button type="button" id="cancel-edit" style="display: none;">Cancel Edit</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2023 HRMS System</p>
+</footer>
+
+<script src="js/salary.js"></script>
+</body>
+</html>

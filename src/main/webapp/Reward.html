@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reward Management</title>
+    <link rel="stylesheet" href="css/reward.css">
+</head>
+<body>
+
+<header>
+    <h1>Reward Management</h1>
+</header>
+
+<main>
+    <!-- Danh sách Reward -->
+    <section id="reward-list">
+        <h2>Rewards</h2>
+        <div id="rewards-container">
+            <!-- Các Reward sẽ được render ở đây -->
+        </div>
+    </section>
+
+    <!-- Form Thêm/Sửa Reward -->
+    <section id="reward-form-section">
+        <h2 id="form-title">Create Reward</h2>
+        <form id="reward-form-element">
+            <input type="hidden" id="reward-id">
+
+            <label for="employee-id">Employee ID:</label>
+            <input type="text" id="employee-id" placeholder="Employee ID" required>
+
+            <label for="completed-tasks">Completed Tasks:</label>
+            <input type="number" id="completed-tasks" placeholder="Number of Completed Tasks" required>
+
+            <label for="performance-score">Performance Score:</label>
+            <input type="number" id="performance-score" step="0.1" placeholder="Performance Score" required>
+
+            <label for="reward-amount">Reward Amount:</label>
+            <input type="number" id="reward-amount" step="0.01" placeholder="Reward Amount" required>
+
+            <label for="reward-type">Reward Type:</label>
+            <select id="reward-type">
+                <option value="MONEY">Money</option>
+                <option value="BONUS">Bonus</option>
+            </select>
+
+            <button type="submit">Save</button>
+            <button type="button" id="cancel-edit" style="display: none;">Cancel Edit</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2023 HRMS System</p>
+</footer>
+
+<script src="js/reward.js"></script>
+
+</body>
+</html>
