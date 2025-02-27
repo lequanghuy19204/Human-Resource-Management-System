@@ -23,4 +23,6 @@ public interface EmployeeService {
     List<Employee> findManagersByCompanyId(ObjectId companyId);
 
     Employee createWithAccount(Employee employee, Account account);
+
+    List<Employee> findByOrganizationId(ObjectId organizationId);
 }

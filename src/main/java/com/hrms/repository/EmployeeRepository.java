@@ -136,4 +136,11 @@ public class EmployeeRepository {
 
         return doc;
     }
+
+    public List<Employee> findByOrganizationId(ObjectId organizationId) {
+        List<Employee> employees = new ArrayList<>();
+        collection.find(Filters.eq("organization_id", organizationId))
+                .forEach(doc -> employees.add(documentToEmployee(doc)));
+        return employees;
+    }
 }

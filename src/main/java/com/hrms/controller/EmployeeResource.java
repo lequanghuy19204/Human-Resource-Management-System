@@ -152,4 +152,17 @@ public class EmployeeResource {
                     .build();
         }
     }
+
+    @GET
+    @Path("/organization/{organizationId}")
+    public Response getEmployeesByOrganizationId(@PathParam("organizationId") String organizationId) {
+        try {
+            List<Employee> employees = employeeService.findByOrganizationId(new ObjectId(organizationId));
+            return Response.ok(employees).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Lỗi khi lấy danh sách nhân viên: " + e.getMessage())
+                    .build();
+        }
+    }
 }

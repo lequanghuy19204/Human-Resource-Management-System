@@ -69,4 +69,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return savedEmployee;
     }
+
+    @Override
+    public List<Employee> findByOrganizationId(ObjectId organizationId) {
+        return employeeRepository.findByOrganizationId(organizationId);
+    }
 }

@@ -33,6 +33,14 @@ public class OrganizationServlet extends HttpServlet {
             String id = req.getParameter("id");
             req.setAttribute("organizationId", id);
             req.getRequestDispatcher("/WEB-INF/views/organization/form.jsp").forward(req, resp);
+        } else if (path.equals("/employees")) {
+            String id = req.getParameter("id");
+            if (id == null || id.trim().isEmpty()) {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID tổ chức không hợp lệ");
+                return;
+            }
+            req.getRequestDispatcher("/WEB-INF/views/organization/organization-employees.jsp").forward(req, resp);
         }
+
     }
 }

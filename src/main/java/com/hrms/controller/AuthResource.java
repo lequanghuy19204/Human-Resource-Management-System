@@ -132,6 +132,7 @@ public class AuthResource {
 
             employee.setOrganization_id(organization.getId());
             employee.setCompany_id(company.get_id());
+            
             employee.setPhone(""); // Để trống hoặc giá trị mặc định
             employee.setOvertime_hours(0);
             employee.setLate_hours(0);
