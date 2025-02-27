@@ -40,14 +40,15 @@ public class SalaryRepository {
     public Salary create(Salary salary) {
         Document doc = salaryToDocument(salary);
         collection.insertOne(doc);
-        salary.set_id(doc.getObjectId("_id").toString());
+        // Gán ID được MongoDB tạo cho đối tượng Salary
+        salary.set_id(doc.getObjectId("_id"));
         return salary;
     }
 
     // Cập nhật Salary theo ObjectId
     public boolean update(ObjectId id, Salary salary) {
         Document doc = salaryToDocument(salary);
-        doc.put("_id", id); // Giữ nguyên ID của tài liệu cần thay thế
+        doc.put("_id", id); // Giữ nguyên ID trong tài liệu cần thay thế
         UpdateResult result = collection.replaceOne(Filters.eq("_id", id), doc);
         return result.getModifiedCount() > 0;
     }
@@ -58,37 +59,24 @@ public class SalaryRepository {
         return result.getDeletedCount() > 0;
     }
 
-    // Chuyển đổi Document (MongoDB) thành Salary
+    // Phương thức chuyển đổi Document (MongoDB) thành Salary
     private Salary documentToSalary(Document doc) {
         Salary salary = new Salary();
-        salary.set_id(doc.getObjectId("_id").toString());
-
-        // Kiểm tra và chuyển đổi `employee_id`
-        Object employeeIdObj = doc.get("employee_id");
-        if (employeeIdObj instanceof ObjectId) {
-            salary.setEmployee_id(employeeIdObj.toString());
-        }
-
+        salary.set_id(doc.getObjectId("_id"));
+        salary.setEmployee_id(doc.getObjectId("employee_id"));
         salary.setWorking_days(doc.getInteger("working_days", 0));
-        salary.setSalary(doc.getDouble("salary"));
+        salary.setSalary(doc.getInteger("salary"));
         salary.setPayment_date(doc.getDate("payment_date"));
         return salary;
     }
 
-    // Chuyển đổi Salary thành Document (MongoDB)
+    // Phương thức chuyển đối tượng Salary sang Document (MongoDB)
     private Document salaryToDocument(Salary salary) {
         Document doc = new Document();
-
-        // Chuyển đổi `_id`
-        if (salary.get_id() != null && !salary.get_id().isEmpty()) {
-            doc.put("_id", new ObjectId(salary.get_id()));
+        if (salary.get_id() != null) {
+            doc.put("_id", salary.get_id());
         }
-
-        // Chuyển đổi `employee_id`
-        if (salary.getEmployee_id() != null && !salary.getEmployee_id().isEmpty()) {
-            doc.put("employee_id", new ObjectId(salary.getEmployee_id()));
-        }
-
+        doc.put("employee_id", salary.getEmployee_id());
         doc.put("working_days", salary.getWorking_days());
         doc.put("salary", salary.getSalary());
         doc.put("payment_date", salary.getPayment_date());

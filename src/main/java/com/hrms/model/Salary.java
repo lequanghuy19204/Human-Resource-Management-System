@@ -1,29 +1,30 @@
 package com.hrms.model;
 
+import org.bson.types.ObjectId; // Thêm import này
 import java.util.Date;
 
 public class Salary {
-    private String _id; // ObjectId as String
-    private String employee_id; // ObjectId reference to Employee
-    private int working_days; // Integer
-    private double salary; // Double
-    private Date payment_date; // Date
+    private ObjectId _id; // Sử dụng ObjectId
+    private ObjectId employee_id; // Sử dụng ObjectId
+    private int working_days;
+    private double salary;
+    private Date payment_date;
 
     public Salary() { }
 
-    public String get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 
-    public void set_id(String _id) {
+    public void set_id(ObjectId _id) {
         this._id = _id;
     }
 
-    public String getEmployee_id() {
+    public ObjectId getEmployee_id() {
         return employee_id;
     }
 
-    public void setEmployee_id(String employee_id) {
+    public void setEmployee_id(ObjectId employee_id) {
         this.employee_id = employee_id;
     }
 
