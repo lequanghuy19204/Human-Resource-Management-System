@@ -2,6 +2,8 @@ package com.hrms.controller;
 
 import com.hrms.model.TrainingProgram;
 import com.hrms.service.TrainingProgramService;
+import com.hrms.model.Employee;
+import com.hrms.service.EmployeeService;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -15,6 +17,9 @@ public class TrainingProgramResource {
 
     @EJB
     private TrainingProgramService trainingProgramService;
+
+    @EJB
+    private EmployeeService employeeService;
 
     @GET
     public Response getAllTrainingPrograms() {
@@ -91,6 +96,24 @@ public class TrainingProgramResource {
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Lỗi khi xóa chương trình đào tạo: " + e.getMessage())
+                    .build();
+        }
+    }
+
+    @GET
+    @Path("/trainer/{trainerId}")
+    public Response getTrainerName(@PathParam("trainerId") String trainerId) {
+        try {
+            Employee trainer = employeeService.findById(new ObjectId(trainerId));
+            if (trainer != null) {
+                return Response.ok(trainer).build();
+            }
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("Không tìm thấy trainer với ID: " + trainerId)
+                    .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Lỗi khi lấy thông tin trainer: " + e.getMessage())
                     .build();
         }
     }
