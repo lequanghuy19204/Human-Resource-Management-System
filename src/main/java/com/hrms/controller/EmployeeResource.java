@@ -165,4 +165,18 @@ public class EmployeeResource {
                     .build();
         }
     }
+
+    @GET
+    @Path("/company/{companyId}/details")
+    public Response getEmployeesWithDetails(@PathParam("companyId") String companyId) {
+        try {
+            List<Map<String, Object>> employeesWithDetails = employeeService
+                    .findByCompanyIdWithDetails(new ObjectId(companyId));
+            return Response.ok(employeesWithDetails).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Lỗi khi lấy danh sách nhân viên: " + e.getMessage())
+                    .build();
+        }
+    }
 }

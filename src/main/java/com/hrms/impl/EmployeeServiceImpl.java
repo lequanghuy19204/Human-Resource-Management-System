@@ -9,6 +9,11 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import org.bson.types.ObjectId;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
+import com.hrms.model.Organization;
+import com.hrms.repository.OrganizationRepository;
 
 @Stateless
 public class EmployeeServiceImpl implements EmployeeService {
@@ -18,6 +23,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Inject
     private AccountRepository accountRepository;
+
+    @Inject
+    private OrganizationRepository organizationRepository;
 
     @Override
     public List<Employee> findAll() {
@@ -73,5 +81,31 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> findByOrganizationId(ObjectId organizationId) {
         return employeeRepository.findByOrganizationId(organizationId);
+    }
+
+    @Override
+    public List<Map<String, Object>> findByCompanyIdWithDetails(ObjectId companyId) {
+        List<Employee> employees = employeeRepository.findByCompanyId(companyId);
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        for (Employee employee : employees) {
+            Map<String, Object> details = new HashMap<>();
+            details.put("_id", employee.get_id());
+            details.put("name", employee.getName());
+            details.put("position_name", employee.getPosition_name());
+            details.put("phone", employee.getPhone());
+
+            // Lấy tên tổ chức
+            if (employee.getOrganization_id() != null) {
+                Organization org = organizationRepository.findById(new ObjectId(employee.getOrganization_id()));
+                details.put("organization_name", org != null ? org.getName() : "Không có");
+            } else {
+                details.put("organization_name", "Không có");
+            }
+
+            result.add(details);
+        }
+
+        return result;
     }
 }

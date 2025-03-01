@@ -5,6 +5,7 @@ import com.hrms.model.Account;
 import jakarta.ejb.Local;
 import org.bson.types.ObjectId;
 import java.util.List;
+import java.util.Map;
 
 @Local
 public interface EmployeeService {
@@ -25,4 +26,6 @@ public interface EmployeeService {
     Employee createWithAccount(Employee employee, Account account);
 
     List<Employee> findByOrganizationId(ObjectId organizationId);
+
+    List<Map<String, Object>> findByCompanyIdWithDetails(ObjectId companyId);
 }
