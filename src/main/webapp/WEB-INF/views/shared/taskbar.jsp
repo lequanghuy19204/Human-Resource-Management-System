@@ -118,6 +118,15 @@
                         Quản lý Đào tạo
                     </a>
                 </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link ${param.active == 'employee-space' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/employee-space">
+                        <i class="bi bi-person-workspace"></i>
+                        Không gian Nhân viên
+                    </a>
+                </li>
+                
                 <li class="nav-item mt-3">
                     <a class="nav-link ${param.active == 'settings' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/settings">
@@ -188,4 +197,4 @@
         }
     </script>
 </body>
-</html> 
+</html>
