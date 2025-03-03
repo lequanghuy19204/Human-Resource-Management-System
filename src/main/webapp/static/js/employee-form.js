@@ -60,6 +60,11 @@ async function loadEmployeeData() {
             document.getElementById('organization_id').value = employee.organization_id;
             document.getElementById('manager_id').value = employee.manager_id || '';
             document.getElementById('phone').value = employee.phone || '';
+            
+            // Điền thông tin thống kê
+            document.getElementById('overtime_hours').value = employee.overtime_hours;
+            document.getElementById('late_hours').value = employee.late_hours;
+            document.getElementById('absent_days').value = employee.absent_days;
 
             // Đánh dấu các quyền
             const checkboxes = document.querySelectorAll('.permission-checkbox');
@@ -120,9 +125,9 @@ async function saveEmployee() {
         phone: document.getElementById('phone').value,
         permissions: getSelectedPermissions(),
         company_id: companyId,
-        overtime_hours: 0,
-        late_hours: 0,
-        absent_days: 0
+        overtime_hours: parseInt(document.getElementById('overtime_hours').value) || 0,
+        late_hours: parseInt(document.getElementById('late_hours').value) || 0,
+        absent_days: parseInt(document.getElementById('absent_days').value) || 0
     };
 
     // Thêm thông tin tài khoản nếu là tạo mới

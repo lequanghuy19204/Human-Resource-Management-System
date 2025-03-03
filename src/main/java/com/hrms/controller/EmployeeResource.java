@@ -78,9 +78,15 @@ public class EmployeeResource {
             employee.setManager_id((String) data.get("manager_id"));
             employee.setPhone((String) data.get("phone"));
             employee.setPermissions((List<String>) data.get("permissions"));
-            employee.setOvertime_hours(0);
-            employee.setLate_hours(0);
-            employee.setAbsent_days(0);
+            if (data.containsKey("overtime_hours")) {
+                employee.setOvertime_hours(((Number) data.get("overtime_hours")).intValue());
+            }
+            if (data.containsKey("late_hours")) {
+                employee.setLate_hours(((Number) data.get("late_hours")).intValue());
+            }
+            if (data.containsKey("absent_days")) {
+                employee.setAbsent_days(((Number) data.get("absent_days")).intValue());
+            }
 
             // Tạo tài khoản mới
             Map<String, String> accountData = (Map<String, String>) data.get("account");

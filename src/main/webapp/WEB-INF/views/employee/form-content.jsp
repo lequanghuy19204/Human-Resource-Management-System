@@ -54,6 +54,22 @@
                     <input type="tel" class="form-control" id="phone">
                 </div>
 
+                <!-- Thêm các trường thống kê -->
+                <div class="col-md-4 mb-3">
+                    <label for="overtime_hours" class="form-label">Giờ làm thêm (giờ)</label>
+                    <input type="number" class="form-control" id="overtime_hours" min="0" value="0">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="late_hours" class="form-label">Giờ đi muộn (giờ)</label>
+                    <input type="number" class="form-control" id="late_hours" min="0" value="0">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="absent_days" class="form-label">Ngày vắng mặt (ngày)</label>
+                    <input type="number" class="form-control" id="absent_days" min="0" value="0">
+                </div>
+
                 <div class="col-12 mb-3">
                     <label class="form-label">Quyền hạn <span class="text-danger">*</span></label>
                     <div class="form-check">
