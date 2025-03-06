@@ -18,17 +18,25 @@ async function loadTasks() {
         }
         const tasks = await response.json();
 
-        // Lấy danh sách nhân viên từ API
+        // Lấy danh sách nhân viên và công ty từ API
         const employeesResponse = await fetch(`${API_URL}/employees`);
-        if (!employeesResponse.ok) {
-            throw new Error('Không thể tải danh sách nhân viên');
+        const companiesResponse = await fetch(`${API_URL}/companies`);
+        if (!employeesResponse.ok || !companiesResponse.ok) {
+            throw new Error('Không thể tải danh sách nhân viên hoặc công ty');
         }
         const employees = await employeesResponse.json();
+        const companiesData = await companiesResponse.json();
 
         // Tạo một map để lưu thông tin nhân viên theo ID
         const employeeMap = new Map();
         employees.forEach(employee => {
             employeeMap.set(employee._id, employee);
+        });
+
+        // Tạo một map để lưu thông tin công ty theo ID
+        const companies = new Map();
+        companiesData.forEach(company => {
+            companies.set(company._id, company);
         });
 
         const tableBody = document.querySelector('#tasksTableBody');
@@ -45,9 +53,13 @@ async function loadTasks() {
                         ${task.assigned_to && task.assigned_to.length > 0
                 ? task.assigned_to.map(employeeId => {
                     const employee = employeeMap.get(employeeId);
-                    return employee
-                        ? `<div class="assigned-to-item">${employee.name} - ${employee.company_id} - ${employee.phone}</div>`
-                        : '<div class="assigned-to-item">Không tìm thấy thông tin</div>';
+                    if (employee) {
+                        const company = companies.get(employee.company_id);
+                        const companyName = company ? company.name : 'Không tìm thấy công ty';
+                        return `<div class="assigned-to-item">${employee.name} - ${companyName} - ${employee.phone}</div>`;
+                    } else {
+                        return '<div class="assigned-to-item">Không tìm thấy thông tin nhân viên</div>';
+                    }
                 }).join('')
                 : 'N/A'
             }
