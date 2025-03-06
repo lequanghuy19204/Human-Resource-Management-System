@@ -1,4 +1,4 @@
-const API_URL = window.location.origin + '/Human-Resource-Management-System-1.0-SNAPSHOT/api/tasks';
+const API_URL = window.location.origin + '/Human-Resource-Management-System-1.0-SNAPSHOT/api';
 
 document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.includes('list')) {
@@ -9,6 +9,60 @@ document.addEventListener('DOMContentLoaded', () => {
         loadTaskData();
     }
 });
+
+async function loadTasks() {
+    try {
+        const response = await fetch(`${API_URL}/tasks`);
+        if (!response.ok) {
+            throw new Error('Không thể tải danh sách nhiệm vụ');
+        }
+        const tasks = await response.json();
+
+        const tableBody = document.querySelector('#tasksTableBody');
+        tableBody.innerHTML = ''; // Xóa nội dung cũ
+
+        tasks.forEach(task => {
+            const row = document.createElement('tr');
+            // Tạo các cột dữ liệu
+            row.innerHTML = `
+                <td>${task.name}</td>
+                <td>${task.description || 'N/A'}</td>
+                <td>${task.assigned_to ? task.assigned_to.join(', ') : 'N/A'}</td>
+                <td>${task.status || 'N/A'}</td>
+                <td>
+                    <a href="${window.location.origin}/Human-Resource-Management-System-1.0-SNAPSHOT/tasks/form?id=${task._id}" class="btn btn-primary btn-sm">Sửa</a>
+                    <button onclick="deleteTask('${task._id}')" class="btn btn-danger btn-sm">Xóa</button>
+                </td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Có lỗi xảy ra khi tải danh sách nhiệm vụ');
+    }
+}
+
+// Xóa nhiệm vụ
+async function deleteTask(taskId) {
+    if (confirm('Bạn có chắc chắn muốn xóa nhiệm vụ này không?')) {
+        try {
+            const response = await fetch(`${API_URL}/tasks/${taskId}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                alert('Xóa nhiệm vụ thành công');
+                loadTasks(); // Tải lại danh sách sau khi xóa
+            } else {
+                alert('Không thể xóa nhiệm vụ');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Có lỗi xảy ra khi xóa nhiệm vụ');
+        }
+    }
+}
 
 // Tải danh sách nhân viên để gán nhiệm vụ
 async function loadEmployeesForAssignment() {
@@ -31,11 +85,11 @@ async function loadEmployeesForAssignment() {
 
 // Tải dữ liệu Task nếu đang chỉnh sửa
 async function loadTaskData() {
-    const taskId = document.getElementById('taskId').value;
+    const taskId = new URLSearchParams(window.location.search).get('id');
     if (!taskId) return;
 
     try {
-        const response = await fetch(`${API_URL}/${taskId}`);
+        const response = await fetch(`${API_URL}/tasks/${taskId}`);
         if (response.ok) {
             const task = await response.json();
 
@@ -71,7 +125,7 @@ function setupFormValidation() {
 
 // Lưu Task
 async function saveTask() {
-    const taskId = document.getElementById('taskId')?.value;
+    const taskId = new URLSearchParams(window.location.search).get('id');
     const taskData = {
         name: document.getElementById('name').value,
         description: document.getElementById('description').value,
@@ -81,7 +135,7 @@ async function saveTask() {
 
     try {
         const method = taskId ? 'PUT' : 'POST';
-        const url = taskId ? `${API_URL}/${taskId}` : API_URL;
+        const url = taskId ? `${API_URL}/tasks/${taskId}` : `${API_URL}/tasks`;
 
         const response = await fetch(url, {
             method: method,
@@ -101,3 +155,5 @@ async function saveTask() {
         alert('Có lỗi xảy ra khi lưu nhiệm vụ');
     }
 }
+
+document.addEventListener('DOMContentLoaded', loadTasks);

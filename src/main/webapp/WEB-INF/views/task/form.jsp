@@ -9,6 +9,6 @@
     <jsp:param name="active" value="tasks" />
     <jsp:param name="content" value="../task/form-content.jsp" />
     <jsp:param name="scripts" value="
-        <script src='${pageContext.request.contextPath}/static/js/task.js'></script>
+        <script src='${pageContext.request.contextPath}/static/js/task-form.js'></script>
     " />
 </jsp:include>

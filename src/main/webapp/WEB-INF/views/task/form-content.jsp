@@ -21,7 +21,7 @@
 
                 <div class="col-md-6 mb-3">
                     <label for="assigned_to" class="form-label">Người được giao <span class="text-danger">*</span></label>
-                    <select class="form-select" id="assigned_to" required>
+                    <select class="form-select" id="assigned_to" required multiple>
                         <option value="">Chọn người được giao</option>
                     </select>
                     <div class="invalid-feedback">Vui lòng chọn người được giao</div>
