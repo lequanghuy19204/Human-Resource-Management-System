@@ -20,11 +20,20 @@
                 </div>
 
                 <div class="col-md-6 mb-3">
-                    <label for="assigned_to" class="form-label">Người được giao <span class="text-danger">*</span></label>
-                    <select class="form-select" id="assigned_to" required multiple>
-                        <option value="">Chọn người được giao</option>
-                    </select>
+                    <label class="form-label">Người được giao <span class="text-danger">*</span></label>
+                    <!-- Ô tìm kiếm nhanh -->
+                    <input type="text" class="form-control mb-2" id="employeeSearch" placeholder="Tìm kiếm nhân viên...">
+                    <!-- Danh sách nhân viên dưới dạng checkbox -->
+                    <div id="employeeList" class="border p-2" style="max-height: 200px; overflow-y: auto;">
+                        <!-- Các checkbox sẽ được thêm vào đây bằng JavaScript -->
+                    </div>
                     <div class="invalid-feedback">Vui lòng chọn người được giao</div>
+
+                    <!-- Ô hiển thị thành viên đã chọn -->
+                    <div class="mt-3">
+                        <label class="form-label">Thành viên đã chọn:</label>
+                        <div id="selectedEmployees" class="border p-2"></div>
+                    </div>
                 </div>
 
                 <div class="col-md-6 mb-3">
