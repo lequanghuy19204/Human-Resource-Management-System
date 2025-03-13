@@ -98,8 +98,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ${param.active == 'payroll' ? 'active' : ''}" 
-                       href="${pageContext.request.contextPath}/payroll">
+                    <a class="nav-link ${param.active == 'salaries' ? 'active' : ''}"
+                       href="${pageContext.request.contextPath}/salaries">
                         <i class="bi bi-cash-stack"></i>
                         Quản lý Lương thưởng
                     </a>

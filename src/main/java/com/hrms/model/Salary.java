@@ -1,30 +1,30 @@
 package com.hrms.model;
 
-import org.bson.types.ObjectId; // Thêm import này
 import java.util.Date;
+import java.util.List;
 
 public class Salary {
-    private ObjectId _id; // Sử dụng ObjectId
-    private ObjectId employee_id; // Sử dụng ObjectId
+    private String _id; // Sử dụng String
+    private String employee_id; // Sử dụng String
     private int working_days;
-    private double salary;
+    private int salary;
     private Date payment_date;
 
     public Salary() { }
 
-    public ObjectId get_id() {
+    public String get_id() {
         return _id;
     }
 
-    public void set_id(ObjectId _id) {
+    public void set_id(String _id) {
         this._id = _id;
     }
 
-    public ObjectId getEmployee_id() {
+    public String getEmployee_id() {
         return employee_id;
     }
 
-    public void setEmployee_id(ObjectId employee_id) {
+    public void setEmployee_id(String employee_id) {
         this.employee_id = employee_id;
     }
 
@@ -36,11 +36,11 @@ public class Salary {
         this.working_days = working_days;
     }
 
-    public double getSalary() {
+    public int getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(int salary) {
         this.salary = salary;
     }
 
