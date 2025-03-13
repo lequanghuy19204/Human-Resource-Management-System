@@ -32,7 +32,7 @@ public class RewardRepository {
 
     // Tìm Reward theo ObjectId
     public Reward findById(ObjectId id) {
-        Document doc = collection.find(Filters.eq("_id", id)).first();
+        Document doc = collection.find(Filters.eq("employee_id", id)).first();
         return doc != null ? documentToReward(doc) : null;
     }
 

@@ -10,9 +10,9 @@
             <th>Tên nhân viên</th>
             <th>Công ty</th>
             <th>Số điện thoại</th>
-            <th>Lương tháng trước</th>
+            <th>Lương cơ bản</th>
             <th>Thưởng (nếu có)</th>
-            <th>Lương tháng này</th>
+            <th>Ngày làm tháng </th>
             <th>Thao tác</th>
         </tr>
         </thead>

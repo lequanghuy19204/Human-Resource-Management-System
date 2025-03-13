@@ -17,15 +17,16 @@ async function loadSalaries() {
             throw new Error('Không thể tải danh sách lương');
         }
         const salaries = await response.json();
-
         // Lấy danh sách nhân viên và công ty từ API
         const employeesResponse = await fetch(`${API_URL}/employees`);
         const companiesResponse = await fetch(`${API_URL}/companies`);
+        const rewardsResponse = await fetch(`${API_URL}/rewards`);
         if (!employeesResponse.ok || !companiesResponse.ok) {
             throw new Error('Không thể tải danh sách nhân viên hoặc công ty');
         }
         const employees = await employeesResponse.json();
         const companiesData = await companiesResponse.json();
+        const rewardsData = await rewardsResponse.json();
 
         // Tạo một map để lưu thông tin nhân viên theo ID
         const employeeMap = new Map();
@@ -39,15 +40,22 @@ async function loadSalaries() {
             companies.set(company._id, company);
         });
 
+        const rewardsMap = new Map();
+        rewardsData.forEach(reward => {
+            rewardsMap.set(reward.employee_id, reward);
+        });
+
         const tableBody = document.querySelector('#salariesTableBody');
-        tableBody.innerHTML = ''; // Xóa nội dung cũ
+        tableBody.innerHTML = '';
 
         let Stt = 0;
         salaries.forEach(salary => {
             const row = document.createElement('tr');
-            const employee = employeeMap.get(salary.employeeId);
+            const employee = employeeMap.get(salary.employee_id);
+            const reward = rewardsMap.get(salary.employee_id);
             const employeeName = employee ? employee.name : 'Không tìm thấy nhân viên';
-            const companyName = employee ? companies.get(employee.company_id)?.name : 'Không tìm thấy công ty';
+            const companyName = employee ? companies.get(employee.company_id).name : 'Không tìm thấy công ty';
+            const rewardSum = reward ? reward.reward : "0";
             const phone = employee ? employee.phone : 'N/A';
 
             Stt++;
@@ -58,7 +66,7 @@ async function loadSalaries() {
                 <td>${companyName}</td>
                 <td>${phone}</td>
                 <td>${salary.salary}</td>
-                <td>${salary.reward}</td>
+                <td>${rewardSum}</td>
                 <td>${salary.working_days}</td>
                 <td>
                     <a href="${window.location.origin}/Human-Resource-Management-System-1.0-SNAPSHOT/salaries/edit?id=${salary._id}" class="btn btn-primary btn-sm">Sửa</a>
