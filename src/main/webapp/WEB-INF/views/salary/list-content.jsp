@@ -4,18 +4,11 @@
 <div class="container mt-5">
     <h2 class="mb-4">Danh sách lương nhân viên</h2>
 
-    <!-- Bộ lọc theo tháng -->
-    <div class="row mb-3">
-        <div class="col-md-4">
-            <label for="monthFilter">Chọn tháng:</label>
-            <input type="month" id="monthFilter" class="form-control" />
-        </div>
-        <div class="col-md-2 d-flex align-items-end">
-            <button class="btn btn-primary" onclick="loadSalaries()">Lọc</button>
-        </div>
+    <div class="form-group mb-3">
+        <label for="monthFilter">Lọc theo tháng:</label>
+        <input type="month" id="monthFilter" class="form-control" />
     </div>
 
-    <!-- Bảng danh sách lương -->
     <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>

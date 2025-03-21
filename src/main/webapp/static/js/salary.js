@@ -1,94 +1,96 @@
 const API_URL = window.location.origin + '/Human-Resource-Management-System-1.0-SNAPSHOT/api';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Cài đặt tháng mặc định là tháng trước
-    setDefaultMonth();
-
-    // Load danh sách lương ban đầu
+    setDefaultMonth(); // Thiết lập tháng mặc định
     loadSalaries();
+
+    // Bắt sự kiện khi thay đổi bộ lọc tháng
+    document.querySelector('#monthFilter').addEventListener('change', loadSalaries);
 });
 
-// Hàm cài đặt tháng mặc định là tháng trước
 function setDefaultMonth() {
-    const now = new Date();
-    now.setMonth(now.getMonth() - 1); // Lấy tháng trước
-    document.querySelector('#monthFilter').value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-    console.log(document.querySelector('#monthFilter').value);
+    const monthFilter = document.querySelector('#monthFilter');
+    if (!monthFilter.value) {
+        const now = new Date();
+        now.setMonth(now.getMonth() - 1);
+        monthFilter.value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    }
 }
 
-// Hàm tải danh sách lương và hiển thị lên bảng
+// Tải dữ liệu lương + nhân viên + công ty song song
 async function loadSalaries() {
     try {
-        // Lấy giá trị tháng từ bộ lọc
+        const [salariesRes, employeesRes, companiesRes, rewardsRes] = await Promise.all([
+            fetch(`${API_URL}/salaries`),
+            fetch(`${API_URL}/employees`),
+            fetch(`${API_URL}/companies`),
+            fetch(`${API_URL}/rewards`)
+        ]);
+
+        if (!salariesRes.ok || !employeesRes.ok || !companiesRes.ok || !rewardsRes.ok) {
+            throw new Error('Không thể tải dữ liệu');
+        }
+
+        const salaries = await salariesRes.json();
+        const employees = await employeesRes.json();
+        const companies = await companiesRes.json();
+        const rewards = await rewardsRes.json();
+
+        // Tạo map cho dữ liệu
+        const employeeMap = new Map(employees.map(emp => [emp._id, emp]));
+        const companiesMap = new Map(companies.map(company => [company._id, company]));
+        const rewardsMap = new Map(rewards.map(reward => [reward.employee_id, reward.reward || 0]));
+
+        // Lọc theo tháng từ ô tìm kiếm
         const monthFilter = document.querySelector('#monthFilter').value;
-        let selectedMonth = null;
+        const filteredSalaries = monthFilter
+            ? salaries.filter(salary => {
+                const paymentDate = new Date(salary.payment_date);
+                const filterDate = new Date(monthFilter + '-01');
+                return (
+                    paymentDate.getMonth() === filterDate.getMonth() &&
+                    paymentDate.getFullYear() === filterDate.getFullYear()
+                );
+            })
+            : salaries;
 
-        if (monthFilter) {
-            selectedMonth = new Date(monthFilter + '-01').getTime(); // Chuyển tháng về timestamp
-        }
-
-        // Gọi API với tham số lọc theo tháng
-        const url = selectedMonth
-            ? `${API_URL}/salaries?month=${selectedMonth}`
-            : `${API_URL}/salaries`;
-
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Không thể tải danh sách lương');
-        }
-
-        const salaries = await response.json();
-
-        // Lấy dữ liệu nhân viên và công ty
-        const employeesResponse = await fetch(`${API_URL}/employees`);
-        const companiesResponse = await fetch(`${API_URL}/companies`);
-        const rewardsResponse = await fetch(`${API_URL}/rewards`);
-
-        if (!employeesResponse.ok || !companiesResponse.ok) {
-            throw new Error('Không thể tải danh sách nhân viên hoặc công ty');
-        }
-
-        const employeesData = await employeesResponse.json();
-        const companiesData = await companiesResponse.json();
-        const rewardsData = await rewardsResponse.json();
-
-        // Tạo map cho nhân viên, công ty và thưởng
-        const employeeMap = new Map(employeesData.map(emp => [emp._id, emp]));
-        const companiesMap = new Map(companiesData.map(company => [company._id, company]));
-        const rewardsMap = new Map(rewardsData.map(reward => [reward.employee_id, reward.reward]));
-
-        // Xóa dữ liệu cũ trước khi hiển thị dữ liệu mới
-        const tableBody = document.querySelector('#salariesTableBody');
-        tableBody.innerHTML = '';
-
-        let Stt = 0;
-        salaries.forEach(salary => {
-            const employee = employeeMap.get(salary.employee_id) || {};
-            const company = companiesMap.get(employee.company_id) || {};
-            const reward = rewardsMap.get(salary.employee_id) || 0;
-
-            Stt++;
-            const row = `
-                <tr>
-                    <td>${Stt}</td>
-                    <td>${employee.name || 'Không tìm thấy nhân viên'}</td>
-                    <td>${company.name || 'Không tìm thấy công ty'}</td>
-                    <td>${employee.phone || 'N/A'}</td>
-                    <td>${salary.salary}</td>
-                    <td>${reward}</td>
-                    <td>${salary.working_days}</td>
-                    <td>
-                        <a href="${window.location.origin}/Human-Resource-Management-System-1.0-SNAPSHOT/salaries/edit?id=${salary._id}" class="btn btn-primary btn-sm">Sửa</a>
-                        <button onclick="deleteSalary('${salary._id}')" class="btn btn-danger btn-sm">Xóa</button>
-                    </td>
-                </tr>
-            `;
-            tableBody.innerHTML += row;
-        });
+        renderSalaries(filteredSalaries, employeeMap, companiesMap, rewardsMap);
     } catch (error) {
         console.error('Error:', error);
         alert('Có lỗi xảy ra khi tải danh sách lương');
     }
+}
+
+// Hiển thị danh sách lương
+function renderSalaries(salaries, employeeMap, companiesMap, rewardsMap) {
+    const tableBody = document.querySelector('#salariesTableBody');
+    tableBody.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+
+    salaries.forEach((salary, index) => {
+        const employee = employeeMap.get(salary.employee_id) || {};
+        const company = companiesMap.get(employee.company_id) || {};
+        const reward = rewardsMap.get(salary.employee_id) || 0;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${employee.name || 'Không tìm thấy nhân viên'}</td>
+            <td>${company.name || 'Không tìm thấy công ty'}</td>
+            <td>${employee.phone || 'N/A'}</td>
+            <td>${salary.salary}</td>
+            <td>${reward}</td>
+            <td>${salary.working_days}</td>
+            <td>
+                <a href="${window.location.origin}/Human-Resource-Management-System-1.0-SNAPSHOT/salaries/edit?id=${salary._id}" class="btn btn-primary btn-sm">Sửa</a>
+                <button onclick="deleteSalary('${salary._id}')" class="btn btn-danger btn-sm">Xóa</button>
+            </td>
+        `;
+        fragment.appendChild(row);
+    });
+
+    tableBody.appendChild(fragment);
 }
 
 // Hàm xóa lương
