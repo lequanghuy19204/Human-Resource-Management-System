@@ -1,7 +1,7 @@
 const API_URL = window.location.origin + '/Human-Resource-Management-System-1.0-SNAPSHOT/api';
 
 document.addEventListener('DOMContentLoaded', () => {
-    setDefaultMonth(); // Thiết lập tháng mặc định
+    setDefaultMonth();
     loadSalaries();
 
     // Bắt sự kiện khi thay đổi bộ lọc tháng

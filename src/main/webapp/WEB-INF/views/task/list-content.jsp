@@ -29,23 +29,19 @@
     </button>
 </div>
 
-<div class="card">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>Tên</th>
-                    <th>Mô tả</th>
-                    <th>Người được giao</th>
-                    <th>Trạng thái</th>
-                    <th>Thao tác</th>
-                </tr>
-                </thead>
-                <tbody id="tasksTableBody">
-                <!-- Dữ liệu sẽ được thêm bởi JavaScript -->
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div class="card card-body table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Tên</th>
+            <th>Mô tả</th>
+            <th>Người được giao</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+        </thead>
+        <tbody id="tasksTableBody">
+        <!-- Dữ liệu sẽ được thêm bởi JavaScript -->
+        </tbody>
+    </table>
 </div>

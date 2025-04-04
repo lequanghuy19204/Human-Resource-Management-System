@@ -1,26 +1,22 @@
 const API_URL = window.location.origin + '/Human-Resource-Management-System-1.0-SNAPSHOT/api';
 
-let companies = {}; // Đối tượng lưu trữ thông tin công ty
-let selectedEmployeeIds = []; // Lưu trữ danh sách nhân viên đã chọn
+let companies = {};
+let selectedEmployeeIds = [];
+
+
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // Tải danh sách công ty trước
     await loadCompanies();
-
-    // Tải danh sách nhân viên và thiết lập tìm kiếm
     await loadEmployees();
     setupEmployeeSearch();
 
-    // Thiết lập validation cho form
     setupFormValidation();
 
-    // Kiểm tra xem đang ở trang chỉnh sửa hay thêm mới
     if (window.location.pathname.includes('/tasks/edit')) {
         await loadTaskData();
     }
 });
 
-// Hàm tải danh sách công ty từ API
 async function loadCompanies() {
     try {
         const response = await fetch(`${API_URL}/companies`);
@@ -29,7 +25,6 @@ async function loadCompanies() {
         }
         const companyList = await response.json();
 
-        // Lưu trữ thông tin công ty trong đối tượng companies
         companyList.forEach(company => {
             companies[company._id] = company.name;
         });
@@ -39,7 +34,6 @@ async function loadCompanies() {
     }
 }
 
-// Hàm tải danh sách nhân viên từ API
 async function loadEmployees() {
     try {
         const response = await fetch(`${API_URL}/employees`);
@@ -49,11 +43,10 @@ async function loadEmployees() {
         const employees = await response.json();
 
         const employeeListDiv = document.getElementById('employeeList');
-        employeeListDiv.innerHTML = ''; // Xóa nội dung cũ
+        employeeListDiv.innerHTML = '';
 
-        // Thêm từng nhân viên vào danh sách checkbox
         employees.forEach(employee => {
-            const companyName = companies[employee.company_id] || 'Không xác định'; // Lấy tên công ty từ đối tượng companies
+            const companyName = companies[employee.company_id] || 'N/A';
             const employeeDiv = document.createElement('div');
             employeeDiv.className = 'form-check';
             employeeDiv.innerHTML = `
@@ -64,7 +57,6 @@ async function loadEmployees() {
             `;
             employeeListDiv.appendChild(employeeDiv);
 
-            // Thiết lập checkbox đã chọn nếu có trong danh sách selectedEmployeeIds
             if (selectedEmployeeIds.includes(employee._id)) {
                 const checkbox = document.querySelector(`#employee_${employee._id}`);
                 if (checkbox) {
@@ -73,10 +65,8 @@ async function loadEmployees() {
             }
         });
 
-        // Thiết lập sự kiện khi checkbox thay đổi
         setupCheckboxEvents();
 
-        // Hiển thị lại danh sách nhân viên đã chọn
         renderSelectedEmployees();
     } catch (error) {
         console.error('Error:', error);
@@ -84,7 +74,6 @@ async function loadEmployees() {
     }
 }
 
-// Hàm thiết lập sự kiện khi checkbox thay đổi
 function setupCheckboxEvents() {
     const checkboxes = document.querySelectorAll('#employeeList .form-check-input');
     checkboxes.forEach(checkbox => {
@@ -92,12 +81,11 @@ function setupCheckboxEvents() {
     });
 }
 
-// Hàm hiển thị thành viên đã chọn
 function renderSelectedEmployees() {
     const selectedEmployeesDiv = document.getElementById('selectedEmployees');
     const checkboxes = document.querySelectorAll('#employeeList .form-check-input:checked');
 
-    selectedEmployeesDiv.innerHTML = ''; // Xóa nội dung cũ
+    selectedEmployeesDiv.innerHTML = '';
 
     checkboxes.forEach(checkbox => {
         const label = checkbox.nextElementSibling.textContent;
@@ -185,14 +173,13 @@ function setupFormValidation() {
     });
 }
 
-// Hàm lưu nhiệm vụ
 async function saveTask() {
     const taskId = new URLSearchParams(window.location.search).get('id');
     const taskData = {
         name: document.getElementById('name').value,
         description: document.getElementById('description').value,
         assigned_to: Array.from(document.querySelectorAll('#employeeList .form-check-input:checked'))
-            .map(checkbox => checkbox.value), // Lấy giá trị từ các checkbox đã chọn
+            .map(checkbox => checkbox.value),
         status: document.getElementById('status').value
     };
 
@@ -209,7 +196,7 @@ async function saveTask() {
         });
 
         if (response.ok) {
-            window.location.href = '/Human-Resource-Management-System-1.0-SNAPSHOT/tasks'; // Chuyển hướng về trang danh sách
+            window.location.href = '/Human-Resource-Management-System-1.0-SNAPSHOT/tasks';
         } else {
             alert('Có lỗi xảy ra khi lưu nhiệm vụ');
         }

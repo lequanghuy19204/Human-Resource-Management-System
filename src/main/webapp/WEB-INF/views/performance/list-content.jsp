@@ -1,17 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Danh sách hiệu suất</h2>
-    <button
-            class="btn btn-success"
-            onclick="addPerformance()">
-        + Thêm mới
+    <button class="btn btn-primary" onclick="window.location.href='performances/create'">
+        <i class="bi bi-plus-circle"></i> Thêm
     </button>
 </div>
 
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>#</th>
+        <th>STT</th>
         <th>Nhân viên</th>
         <th>Điểm hiệu suất</th>
         <th>Tỷ lệ hoàn thành</th>

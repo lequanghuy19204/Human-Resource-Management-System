@@ -2,23 +2,20 @@ const API_URL = window.location.origin + '/Human-Resource-Management-System-1.0-
 
 document.addEventListener('DOMContentLoaded', () => {
     const path = window.location.pathname;
-    console.log('Current path:', path); // In ra đường dẫn hiện tại
 
     if (path.endsWith('/tasks')) {
-        loadTasks(); // Tải danh sách task nếu ở trang danh sách
+        loadTasks();
     }
 });
 
-// Hàm tải danh sách task và hiển thị lên bảng
 async function loadTasks() {
     try {
-        const response = await fetch(`${API_URL}/tasks`);
-        if (!response.ok) {
+        const tasksResponse = await fetch(`${API_URL}/tasks`);
+        if (!tasksResponse.ok) {
             throw new Error('Không thể tải danh sách nhiệm vụ');
         }
-        const tasks = await response.json();
+        const tasks = await tasksResponse.json();
 
-        // Lấy danh sách nhân viên và công ty từ API
         const employeesResponse = await fetch(`${API_URL}/employees`);
         const companiesResponse = await fetch(`${API_URL}/companies`);
         if (!employeesResponse.ok || !companiesResponse.ok) {
@@ -27,13 +24,11 @@ async function loadTasks() {
         const employees = await employeesResponse.json();
         const companiesData = await companiesResponse.json();
 
-        // Tạo một map để lưu thông tin nhân viên theo ID
         const employeeMap = new Map();
         employees.forEach(employee => {
             employeeMap.set(employee._id, employee);
         });
 
-        // Tạo một map để lưu thông tin công ty theo ID
         const companies = new Map();
         companiesData.forEach(company => {
             companies.set(company._id, company);
@@ -50,19 +45,16 @@ async function loadTasks() {
                 <td>${task.description || 'N/A'}</td>
                 <td>
                     <div class="assigned-to-container">
-                        ${task.assigned_to && task.assigned_to.length > 0
-                ? task.assigned_to.map(employeeId => {
-                    const employee = employeeMap.get(employeeId);
-                    if (employee) {
-                        const company = companies.get(employee.company_id);
-                        const companyName = company ? company.name : 'Không tìm thấy công ty';
-                        return `<div class="assigned-to-item">${employee.name} - ${companyName} - ${employee.phone}</div>`;
-                    } else {
-                        return '<div class="assigned-to-item">Không tìm thấy thông tin nhân viên</div>';
-                    }
-                }).join('')
-                : 'N/A'
-            }
+                        ${task.assigned_to && task.assigned_to.length > 0 ? task.assigned_to.map(employeeId => {
+                            const employee = employeeMap.get(employeeId);
+                            if (employee) {
+                                const company = companies.get(employee.company_id);
+                                const companyName = company ? company.name : 'N/A';
+                                return `<div class="assigned-to-item">${employee.name} - ${companyName} - ${employee.phone}</div>`;
+                            } else {
+                                return '<div class="assigned-to-item">Không tìm thấy thông tin nhân viên</div>';
+                            }
+                        }).join('') : 'N/A'}
                     </div>
                 </td>
                 <td>${task.status || 'N/A'}</td>
@@ -75,32 +67,28 @@ async function loadTasks() {
             tableBody.appendChild(row);
         });
     } catch (error) {
-        console.error('Error:', error);
         alert('Có lỗi xảy ra khi tải danh sách nhiệm vụ');
     }
 }
 
-// Hàm xóa task
 async function deleteTask(taskId) {
     if (!taskId) {
-        console.error('Task ID không hợp lệ');
         return;
     }
 
-    // Hiển thị thông báo xác nhận
     const isConfirmed = confirm('Bạn có chắc chắn muốn xóa nhiệm vụ này không?');
     if (!isConfirmed) return;
 
     try {
-        const response = await fetch(`${API_URL}/tasks/${taskId}`, {
+        const taskResponse = await fetch(`${API_URL}/tasks/${taskId}`, {
             method: 'DELETE'
         });
 
-        if (response.ok) {
+        if (taskResponse.ok) {
             alert('Xóa nhiệm vụ thành công');
-            loadTasks(); // Tải lại danh sách sau khi xóa
+            loadTasks();
         } else {
-            const errorData = await response.json();
+            const errorData = await taskResponse.json();
             alert(`Không thể xóa nhiệm vụ: ${errorData.message || 'Lỗi không xác định'}`);
         }
     } catch (error) {

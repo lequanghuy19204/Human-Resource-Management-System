@@ -15,28 +15,6 @@
                 </div>
 
                 <div class="col-md-6 mb-3">
-                    <label for="description" class="form-label">Mô tả</label>
-                    <input type="text" class="form-control" id="description">
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Người được giao <span class="text-danger">*</span></label>
-                    <!-- Ô tìm kiếm nhanh -->
-                    <input type="text" class="form-control mb-2" id="employeeSearch" placeholder="Tìm kiếm nhân viên...">
-                    <!-- Danh sách nhân viên dưới dạng checkbox -->
-                    <div id="employeeList" class="border p-2" style="max-height: 200px; overflow-y: auto;">
-                        <!-- Các checkbox sẽ được thêm vào đây bằng JavaScript -->
-                    </div>
-                    <div class="invalid-feedback">Vui lòng chọn người được giao</div>
-
-                    <!-- Ô hiển thị thành viên đã chọn -->
-                    <div class="mt-3">
-                        <label class="form-label">Thành viên đã chọn:</label>
-                        <div id="selectedEmployees" class="border p-2"></div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 mb-3">
                     <label for="status" class="form-label">Trạng thái <span class="text-danger">*</span></label>
                     <select class="form-select" id="status" required>
                         <option value="">Chọn trạng thái</option>
@@ -44,6 +22,22 @@
                         <option value="COMPLETED">Hoàn thành</option>
                     </select>
                     <div class="invalid-feedback">Vui lòng chọn trạng thái</div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Người được giao <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control mb-2" id="employeeSearch" placeholder="Tìm kiếm nhân viên...">
+                    <div id="employeeList" class="border p-2" style="max-height: 200px; overflow-y: auto;"></div>
+                    <div class="invalid-feedback">Vui lòng chọn người được giao</div>
+                    <div class="mt-3">
+                        <label class="form-label">Thành viên đã chọn:</label>
+                        <div id="selectedEmployees" class="border p-2" style="min-height: 50px; max-height: 200px; overflow-y: auto;"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="description" class="form-label">Mô tả</label>
+                    <textarea class="form-control" id="description" rows="10" style="resize: vertical;"></textarea>
                 </div>
             </div>
 
