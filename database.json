@@ -39,38 +39,13 @@
         "company_id": { "$oid": "67b747d5a149c44917f156ad" },
         "manager_id": null,
         "phone": "123-456-7890",
+        "account_id": { "$oid": "64a3f5a8a6e7e0012345678d" },
+        "base_salary": 10000000,
         "overtime_hours": 10,
         "late_hours": 5,
         "absent_days": 0,
-        "account_id": { "$oid": "64a3f5a8a6e7e0012345678d" }
-      },
-      {
-        "_id": { "$oid": "64a3f5a8a6e7e0012345678f" },
-        "name": "Jane Smith",
-        "position_name": "Staff",
-        "permissions": [ "EMPLOYEES" ],
-        "organization_id": { "$oid": "67b7497ba149c44917f156b4" },
-        "company_id": { "$oid": "67b747d5a149c44917f156ad" },
-        "manager_id": { "$oid": "64a3f5a8a6e7e0012345678c" },
-        "phone": "987-654-3210",
-        "overtime_hours": 5,
-        "late_hours": 0,
-        "absent_days": 1,
-        "account_id": { "$oid": "64a3f5a8a6e7e00123456795" }
-      },
-      {
-        "_id": { "$oid": "64a3f5a8a6e7e00123456794" },
-        "name": "Alice Nguyen",
-        "position_name": "Staff",
-        "permissions": [ "EMPLOYEES" ],
-        "organization_id": { "$oid": "67b7497ba149c44917f156b4" },
-        "company_id": { "$oid": "67b747d5a149c44917f156ad" },
-        "manager_id": { "$oid": "64a3f5a8a6e7e0012345678c" },
-        "phone": "555-123-4567",
-        "overtime_hours": 8,
-        "late_hours": 2,
-        "absent_days": 0,
-        "account_id": { "$oid": "64a3f5a8a6e7e00123456796" }
+        "working_days": 22,
+        "approved_leave_days": 1
       }
     ]
   },
