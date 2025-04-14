@@ -56,6 +56,11 @@
 
                 <!-- Thêm các trường thống kê -->
                 <div class="col-md-4 mb-3">
+                    <label for="base_salary" class="form-label">Lương cơ bản (VNĐ)</label>
+                    <input type="number" class="form-control" id="base_salary" min="0" value="0">
+                </div>
+
+                <div class="col-md-4 mb-3">
                     <label for="overtime_hours" class="form-label">Giờ làm thêm (giờ)</label>
                     <input type="number" class="form-control" id="overtime_hours" min="0" value="0">
                 </div>
@@ -68,6 +73,16 @@
                 <div class="col-md-4 mb-3">
                     <label for="absent_days" class="form-label">Ngày vắng mặt (ngày)</label>
                     <input type="number" class="form-control" id="absent_days" min="0" value="0">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="working_days" class="form-label">Số ngày làm việc</label>
+                    <input type="number" class="form-control" id="working_days" min="0" value="0">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="approved_leave_days" class="form-label">Ngày nghỉ phép</label>
+                    <input type="number" class="form-control" id="approved_leave_days" min="0" value="0">
                 </div>
 
                 <div class="col-12 mb-3">

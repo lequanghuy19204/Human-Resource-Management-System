@@ -32,9 +32,12 @@ async function loadEmployees() {
                     <td>${org.name}</td>
                     <td>${managerName}</td>
                     <td>${emp.phone || '-'}</td>
-                    <td>${emp.overtime_hours}</td>
-                    <td>${emp.late_hours}</td>
-                    <td>${emp.absent_days}</td>
+                    <td>${new Intl.NumberFormat('vi-VN').format(emp.base_salary || 0)} VNĐ</td>
+                    <td>${emp.overtime_hours || 0}</td>
+                    <td>${emp.late_hours || 0}</td>
+                    <td>${emp.absent_days || 0}</td>
+                    <td>${emp.working_days || 0}</td>
+                    <td>${emp.approved_leave_days || 0}</td>
                     <td>
                         <div class="btn-group btn-group-sm">
                             <button class="btn btn-primary" onclick="window.location.href='employees/edit?id=${emp._id}'">
@@ -52,7 +55,7 @@ async function loadEmployees() {
         if (employees.length === 0) {
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="9" class="text-center py-4">
+                    <td colspan="12" class="text-center py-4">
                         <p class="text-muted mb-0">Chưa có nhân viên nào</p>
                     </td>
                 </tr>

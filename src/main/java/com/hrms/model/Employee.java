@@ -15,6 +15,9 @@ public class Employee {
     private int late_hours;
     private int absent_days;
     private String account_id;
+    private double base_salary;
+    private int working_days;
+    private int approved_leave_days;
 
     // Constructor
     public Employee() {
@@ -115,5 +118,29 @@ public class Employee {
 
     public void setAccount_id(String account_id) {
         this.account_id = account_id;
+    }
+
+    public double getBase_salary() {
+        return base_salary;
+    }
+
+    public void setBase_salary(double base_salary) {
+        this.base_salary = base_salary;
+    }
+
+    public int getWorking_days() {
+        return working_days;
+    }
+
+    public void setWorking_days(int working_days) {
+        this.working_days = working_days;
+    }
+
+    public int getApproved_leave_days() {
+        return approved_leave_days;
+    }
+
+    public void setApproved_leave_days(int approved_leave_days) {
+        this.approved_leave_days = approved_leave_days;
     }
 }

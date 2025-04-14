@@ -19,9 +19,12 @@
                         <th>Tổ chức</th>
                         <th>Quản lý</th>
                         <th>Số điện thoại</th>
+                        <th>Lương cơ bản</th>
                         <th>Giờ tăng ca</th>
                         <th>Giờ đi muộn</th>
                         <th>Ngày vắng</th>
+                        <th>Ngày làm việc</th>
+                        <th>Ngày nghỉ phép</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>

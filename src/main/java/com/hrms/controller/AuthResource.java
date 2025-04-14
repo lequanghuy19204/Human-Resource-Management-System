@@ -126,7 +126,7 @@ public class AuthResource {
             employee.setPosition_name("Manager");
 
             List<String> permissions = Arrays.asList(
-                    "MANAGE_ORGANIZATION", "MANAGE_EMPLOYEES", "MANAGE_TASKS",
+                    "OWNER", "MANAGE_ORGANIZATION", "MANAGE_EMPLOYEES", "MANAGE_TASKS",
                     "MANAGE_SALARY", "MANAGE_TRAINING", "MANAGE_PERFORMANCE");
             employee.setPermissions(permissions);
 
@@ -137,6 +137,9 @@ public class AuthResource {
             employee.setOvertime_hours(0);
             employee.setLate_hours(0);
             employee.setAbsent_days(0);
+            employee.setBase_salary(0.0);
+            employee.setWorking_days(0);
+            employee.setApproved_leave_days(0);
 
             employee = employeeService.create(employee);
 

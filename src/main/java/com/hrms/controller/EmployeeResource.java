@@ -78,6 +78,7 @@ public class EmployeeResource {
             employee.setManager_id((String) data.get("manager_id"));
             employee.setPhone((String) data.get("phone"));
             employee.setPermissions((List<String>) data.get("permissions"));
+            
             if (data.containsKey("overtime_hours")) {
                 employee.setOvertime_hours(((Number) data.get("overtime_hours")).intValue());
             }
@@ -86,6 +87,15 @@ public class EmployeeResource {
             }
             if (data.containsKey("absent_days")) {
                 employee.setAbsent_days(((Number) data.get("absent_days")).intValue());
+            }
+            if (data.containsKey("base_salary")) {
+                employee.setBase_salary(((Number) data.get("base_salary")).doubleValue());
+            }
+            if (data.containsKey("working_days")) {
+                employee.setWorking_days(((Number) data.get("working_days")).intValue());
+            }
+            if (data.containsKey("approved_leave_days")) {
+                employee.setApproved_leave_days(((Number) data.get("approved_leave_days")).intValue());
             }
 
             // Tạo tài khoản mới

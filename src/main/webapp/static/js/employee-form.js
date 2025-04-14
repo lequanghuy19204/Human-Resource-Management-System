@@ -65,6 +65,11 @@ async function loadEmployeeData() {
             document.getElementById('overtime_hours').value = employee.overtime_hours;
             document.getElementById('late_hours').value = employee.late_hours;
             document.getElementById('absent_days').value = employee.absent_days;
+            
+            // Điền thông tin các trường mới
+            document.getElementById('base_salary').value = employee.base_salary || 0;
+            document.getElementById('working_days').value = employee.working_days || 0;
+            document.getElementById('approved_leave_days').value = employee.approved_leave_days || 0;
 
             // Đánh dấu các quyền
             const checkboxes = document.querySelectorAll('.permission-checkbox');
@@ -127,7 +132,10 @@ async function saveEmployee() {
         company_id: companyId,
         overtime_hours: parseInt(document.getElementById('overtime_hours').value) || 0,
         late_hours: parseInt(document.getElementById('late_hours').value) || 0,
-        absent_days: parseInt(document.getElementById('absent_days').value) || 0
+        absent_days: parseInt(document.getElementById('absent_days').value) || 0,
+        base_salary: parseFloat(document.getElementById('base_salary').value) || 0,
+        working_days: parseInt(document.getElementById('working_days').value) || 0,
+        approved_leave_days: parseInt(document.getElementById('approved_leave_days').value) || 0
     };
 
     // Thêm thông tin tài khoản nếu là tạo mới

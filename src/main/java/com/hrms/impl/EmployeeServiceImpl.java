@@ -94,6 +94,9 @@ public class EmployeeServiceImpl implements EmployeeService {
             details.put("name", employee.getName());
             details.put("position_name", employee.getPosition_name());
             details.put("phone", employee.getPhone());
+            details.put("base_salary", employee.getBase_salary());
+            details.put("working_days", employee.getWorking_days());
+            details.put("approved_leave_days", employee.getApproved_leave_days());
 
             // Lấy tên tổ chức
             if (employee.getOrganization_id() != null) {

@@ -95,6 +95,12 @@ public class EmployeeRepository {
         employee.setOvertime_hours(doc.getInteger("overtime_hours", 0));
         employee.setLate_hours(doc.getInteger("late_hours", 0));
         employee.setAbsent_days(doc.getInteger("absent_days", 0));
+        
+        Double baseSalary = doc.containsKey("base_salary") ? doc.getDouble("base_salary") : 0.0;
+        employee.setBase_salary(baseSalary);
+        
+        employee.setWorking_days(doc.getInteger("working_days", 0));
+        employee.setApproved_leave_days(doc.getInteger("approved_leave_days", 0));
 
         ObjectId accountId = doc.getObjectId("account_id");
         if (accountId != null) {
@@ -129,6 +135,9 @@ public class EmployeeRepository {
         doc.append("overtime_hours", employee.getOvertime_hours());
         doc.append("late_hours", employee.getLate_hours());
         doc.append("absent_days", employee.getAbsent_days());
+        doc.append("base_salary", employee.getBase_salary());
+        doc.append("working_days", employee.getWorking_days());
+        doc.append("approved_leave_days", employee.getApproved_leave_days());
 
         if (employee.getAccount_id() != null) {
             doc.append("account_id", new ObjectId(employee.getAccount_id()));
