@@ -27,16 +27,6 @@ public class EmployeeServlet extends HttpServlet {
 
         if (path == null || path.equals("/")) {
             req.getRequestDispatcher("/WEB-INF/views/employee/list.jsp").forward(req, resp);
-        } else if (path.equals("/create")) {
-            req.getRequestDispatcher("/WEB-INF/views/employee/form.jsp").forward(req, resp);
-        } else if (path.equals("/edit")) {
-            String id = req.getParameter("id");
-            if (id == null || id.trim().isEmpty()) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID nhân viên không hợp lệ");
-                return;
-            }
-            req.setAttribute("employeeId", id);
-            req.getRequestDispatcher("/WEB-INF/views/employee/form.jsp").forward(req, resp);
         } else {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }

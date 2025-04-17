@@ -2,32 +2,16 @@ const API_URL = window.location.origin + '/Human-Resource-Management-System-1.0-
 
 document.addEventListener('DOMContentLoaded', () => {
     loadPerformanceData();
-
-    // Xử lý sự kiện nút "Thêm mới"
-    document.querySelector('#addPerformanceBtn').addEventListener('click', () => {
-        window.location.href = `${window.location.origin}/Human-Resource-Management-System-1.0-SNAPSHOT/performance/create`;
-    });
 });
 
 // Tải dữ liệu hiệu suất
 async function loadPerformanceData() {
     try {
-        const [performanceRes, employeesRes] = await Promise.all([
-            fetch(`${API_URL}/performances`),
-            fetch(`${API_URL}/employees`)
-        ]);
-
-        if (!performanceRes.ok || !employeesRes.ok) {
-            throw new Error('Không thể tải dữ liệu');
-        }
-
-        const performances = await performanceRes.json();
-        const employees = await employeesRes.json();
-
-        // Tạo map cho dữ liệu nhân viên
-        const employeeMap = new Map(employees.map(emp => [emp._id, emp]));
-
-        renderPerformance(performances, employeeMap);
+        const companyId = document.getElementById('companyId').value;
+        const response = await fetch(`${API_URL}/employees/company/${companyId}`);
+        const performances = await response.json();
+        console.log(performances);
+        renderPerformance(performances);
     } catch (error) {
         console.error('Lỗi khi tải dữ liệu:', error);
         alert('Có lỗi xảy ra khi tải danh sách hiệu suất');
@@ -35,55 +19,62 @@ async function loadPerformanceData() {
 }
 
 // Hiển thị danh sách hiệu suất
-function renderPerformance(performances, employeeMap) {
+function renderPerformance(performances) {
     const tableBody = document.querySelector('#performanceTableBody');
     tableBody.innerHTML = '';
 
     const fragment = document.createDocumentFragment();
 
     performances.forEach((performance, index) => {
-        const employee = employeeMap.get(performance.employee_id) || {};
-
+        const Task_Completion_Rate = performance.task_count ? performance.completed_tasks/performance.task_count : 0;
+        const Ontime_Rate = performance.completed_tasks ? performance.ontime_tasks/performance.completed_tasks : 0;
+        const EE_Score = performance.quality_score;
+        const Performance_Score = 0.5*Task_Completion_Rate + 0.2*Ontime_Rate + 0.3*EE_Score;
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${index + 1}</td>
-            <td>${employee.name || 'Không tìm thấy nhân viên'}</td>
-            <td>${performance.performance_score.toFixed(2)}</td>
-            <td>${performance.complete_rate.toFixed(2)}%</td>
-            <td>${performance.ontime_rate.toFixed(2)}%</td>
-            <td>${performance.quality_score}</td>
+            <td>${performance.name || 'lỗi tên nhân viên'}</td>
+            <td>${Performance_Score}%</td>
+            <td>${Task_Completion_Rate}%</td>
+            <td>${Ontime_Rate}%</td>
+            <td><input type="number" step="0.01" min="0" max="1" class="form-control ee-score-input" data-id="${performance._id}" value="${EE_Score}" /></td>
             <td>
-                <a href="${window.location.origin}/Human-Resource-Management-System-1.0-SNAPSHOT/performance/edit?id=${performance._id}" class="btn btn-primary btn-sm">Sửa</a>
-                <button onclick="deletePerformance('${performance._id}')" class="btn btn-danger btn-sm">Xóa</button>
+                <button class="btn btn-primary btn-sm save-btn" data-id="${performance._id}">Sửa</button>
             </td>
         `;
         fragment.appendChild(row);
     });
 
     tableBody.appendChild(fragment);
-}
 
-// Xóa hiệu suất
-async function deletePerformance(performanceId) {
-    if (!performanceId) return;
+    document.querySelectorAll('.save-btn').forEach(button => {
+        button.addEventListener('click', async (e) => {
+            const employeeId = button.getAttribute('data-id');
+            const input = document.querySelector(`.ee-score-input[data-id="${employeeId}"]`);
+            const newScore = parseFloat(input.value);
 
-    const isConfirmed = confirm('Bạn có chắc chắn muốn xóa hiệu suất này không?');
-    if (!isConfirmed) return;
+            if (isNaN(newScore) || newScore < 0 || newScore > 100) {
+                alert('Điểm EE phải nằm trong khoảng từ 0 đến 100');
+                return;
+            }
 
-    try {
-        const response = await fetch(`${API_URL}/performance/${performanceId}`, {
-            method: 'DELETE'
+            try {
+                const res = await fetch(`${API_URL}/employees/performance/${employeeId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ quality_score: newScore })
+                });
+
+                if (!res.ok) throw new Error('Lỗi khi cập nhật điểm');
+
+                alert('Cập nhật thành công!');
+                loadPerformanceData();
+            } catch (err) {
+                console.error(err);
+                alert('Có lỗi xảy ra khi cập nhật điểm EE');
+            }
         });
-
-        if (response.ok) {
-            alert('Xóa hiệu suất thành công');
-            loadPerformanceData(); // Tải lại dữ liệu
-        } else {
-            const errorData = await response.json();
-            alert(`Không thể xóa hiệu suất: ${errorData.message || 'Lỗi không xác định'}`);
-        }
-    } catch (error) {
-        console.error('Lỗi khi xóa hiệu suất:', error);
-        alert('Có lỗi xảy ra khi xóa hiệu suất');
-    }
+    });
 }

@@ -195,4 +195,53 @@ public class EmployeeResource {
                     .build();
         }
     }
+
+    @PATCH
+    @Path("/performance/{employeeId}")
+    public Response performancesUpdate(@PathParam("employeeId") String employeeId, Map<String, Object> updates) {
+        try {
+            ObjectId id = new ObjectId(employeeId);
+
+            // Lấy nhân viên hiện tại
+            Employee employee = employeeService.findById(id);
+            if (employee == null) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("Không tìm thấy nhân viên với ID: " + employeeId)
+                        .build();
+            }
+
+            // Cập nhật các trường hiệu suất nếu có trong body
+            if (updates.containsKey("quality_score")) {
+                employee.setQuality_score(((Number) updates.get("quality_score")).doubleValue());
+            }
+            if (updates.containsKey("task_count")) {
+                employee.setTask_count(((Number) updates.get("task_count")).intValue());
+            }
+            if (updates.containsKey("completed_tasks")) {
+                employee.setCompleted_tasks(((Number) updates.get("completed_tasks")).intValue());
+            }
+            if (updates.containsKey("ontime_tasks")) {
+                employee.setOntime_tasks(((Number) updates.get("ontime_tasks")).intValue());
+            }
+            if (updates.containsKey("performance_score")) {
+                employee.setPerformance_score(((Number) updates.get("performance_score")).doubleValue());
+            }
+
+            // Gọi service để update
+            boolean updated = employeeService.update(id, employee);
+
+            if (updated) {
+                return Response.ok(employee).build();
+            } else {
+                return Response.status(Response.Status.NOT_MODIFIED)
+                        .entity("Không thể cập nhật dữ liệu hiệu suất")
+                        .build();
+            }
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Lỗi khi cập nhật hiệu suất: " + e.getMessage())
+                    .build();
+        }
+    }
 }

@@ -27,18 +27,6 @@ public class PerformanceServlet extends HttpServlet {
         if (path == null || path.equals("/")) {
             // Hiển thị danh sách hiệu suất
             req.getRequestDispatcher("/WEB-INF/views/performance/list.jsp").forward(req, resp);
-        } else if (path.equals("/create")) {
-            // Hiển thị form thêm mới hiệu suất
-            req.getRequestDispatcher("/WEB-INF/views/performance/form.jsp").forward(req, resp);
-        } else if (path.equals("/edit")) {
-            // Hiển thị form chỉnh sửa hiệu suất
-            String id = req.getParameter("id");
-            if (id == null || id.trim().isEmpty()) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID hiệu suất không hợp lệ");
-                return;
-            }
-            req.setAttribute("performanceId", id);
-            req.getRequestDispatcher("/WEB-INF/views/performance/form.jsp").forward(req, resp);
         } else {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
