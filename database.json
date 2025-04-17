@@ -94,8 +94,11 @@
         "_id": { "$oid": "64a3f5a8a6e7e00123456790" },
         "employee_id": { "$oid": "64a3f5a8a6e7e0012345678c" },
         "working_days": 22,
-        "salary": 5000.0,
-        "payment_date": { "$date": "2023-10-01T00:00:00Z" }
+        "payment_date": { "$date": "2023-10-01T00:00:00Z" },
+        "overtime_hours": 5,
+        "late_hours": 10,
+        "absent_days": 3,
+        "approved_leave_days": 1
       }
     ]
   },

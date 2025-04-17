@@ -8,6 +8,8 @@ import com.hrms.service.SalaryService;
 import jakarta.ejb.EJB;
 import org.bson.types.ObjectId;
 
+import java.util.List;
+
 @Path("/salaries")
 @Produces({"application/json"})
 @Consumes({"application/json"})
@@ -49,5 +51,12 @@ public class SalaryResource {
     public Response deleteSalary(@PathParam("id") ObjectId id) {
         salaryService.delete(id);
         return Response.noContent().build();
+    }
+
+    @GET
+    @Path("/month/{month}/year/{year}")
+    public Response getSalaryByMonth(@PathParam("month") int month, @PathParam("year") int year) {
+         List<Salary> salaries = salaryService.getByMonth(month, year);
+         return Response.ok(salaries).build();
     }
 }
