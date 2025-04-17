@@ -41,11 +41,11 @@
         "phone": "123-456-7890",
         "account_id": { "$oid": "64a3f5a8a6e7e0012345678d" },
         "base_salary": 10000000,
-        "overtime_hours": 10,
-        "late_hours": 5,
-        "absent_days": 0,
-        "working_days": 22,
-        "approved_leave_days": 1
+        "task_count": 0,
+        "completed_tasks": 0,
+        "ontime_tasks": 0,
+        "quality_score": 0.0,
+        "performance_score": 0.0
       }
     ]
   },

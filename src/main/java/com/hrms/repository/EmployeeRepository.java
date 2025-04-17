@@ -92,15 +92,19 @@ public class EmployeeRepository {
         }
 
         employee.setPhone(doc.getString("phone"));
-        employee.setOvertime_hours(doc.getInteger("overtime_hours", 0));
-        employee.setLate_hours(doc.getInteger("late_hours", 0));
-        employee.setAbsent_days(doc.getInteger("absent_days", 0));
+        
+        employee.setTask_count(doc.getInteger("task_count", 0));
+        employee.setCompleted_tasks(doc.getInteger("completed_tasks", 0));
+        employee.setOntime_tasks(doc.getInteger("ontime_tasks", 0));
+        
+        Double qualityScore = doc.containsKey("quality_score") ? doc.getDouble("quality_score") : 0.0;
+        employee.setQuality_score(qualityScore);
+        
+        Double performanceScore = doc.containsKey("performance_score") ? doc.getDouble("performance_score") : 0.0;
+        employee.setPerformance_score(performanceScore);
         
         Double baseSalary = doc.containsKey("base_salary") ? doc.getDouble("base_salary") : 0.0;
         employee.setBase_salary(baseSalary);
-        
-        employee.setWorking_days(doc.getInteger("working_days", 0));
-        employee.setApproved_leave_days(doc.getInteger("approved_leave_days", 0));
 
         ObjectId accountId = doc.getObjectId("account_id");
         if (accountId != null) {
@@ -132,12 +136,12 @@ public class EmployeeRepository {
         }
 
         doc.append("phone", employee.getPhone());
-        doc.append("overtime_hours", employee.getOvertime_hours());
-        doc.append("late_hours", employee.getLate_hours());
-        doc.append("absent_days", employee.getAbsent_days());
+        doc.append("task_count", employee.getTask_count());
+        doc.append("completed_tasks", employee.getCompleted_tasks());
+        doc.append("ontime_tasks", employee.getOntime_tasks());
+        doc.append("quality_score", employee.getQuality_score());
+        doc.append("performance_score", employee.getPerformance_score());
         doc.append("base_salary", employee.getBase_salary());
-        doc.append("working_days", employee.getWorking_days());
-        doc.append("approved_leave_days", employee.getApproved_leave_days());
 
         if (employee.getAccount_id() != null) {
             doc.append("account_id", new ObjectId(employee.getAccount_id()));

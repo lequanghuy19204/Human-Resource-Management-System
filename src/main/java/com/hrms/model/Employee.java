@@ -11,13 +11,13 @@ public class Employee {
     private String company_id;
     private String manager_id;
     private String phone;
-    private int overtime_hours;
-    private int late_hours;
-    private int absent_days;
     private String account_id;
     private double base_salary;
-    private int working_days;
-    private int approved_leave_days;
+    private int task_count;
+    private int completed_tasks;
+    private int ontime_tasks;
+    private double quality_score;
+    private double performance_score;
 
     // Constructor
     public Employee() {
@@ -88,30 +88,6 @@ public class Employee {
         this.phone = phone;
     }
 
-    public int getOvertime_hours() {
-        return overtime_hours;
-    }
-
-    public void setOvertime_hours(int overtime_hours) {
-        this.overtime_hours = overtime_hours;
-    }
-
-    public int getLate_hours() {
-        return late_hours;
-    }
-
-    public void setLate_hours(int late_hours) {
-        this.late_hours = late_hours;
-    }
-
-    public int getAbsent_days() {
-        return absent_days;
-    }
-
-    public void setAbsent_days(int absent_days) {
-        this.absent_days = absent_days;
-    }
-
     public String getAccount_id() {
         return account_id;
     }
@@ -128,19 +104,43 @@ public class Employee {
         this.base_salary = base_salary;
     }
 
-    public int getWorking_days() {
-        return working_days;
+    public int getTask_count() {
+        return task_count;
     }
 
-    public void setWorking_days(int working_days) {
-        this.working_days = working_days;
+    public void setTask_count(int task_count) {
+        this.task_count = task_count;
     }
 
-    public int getApproved_leave_days() {
-        return approved_leave_days;
+    public int getCompleted_tasks() {
+        return completed_tasks;
     }
 
-    public void setApproved_leave_days(int approved_leave_days) {
-        this.approved_leave_days = approved_leave_days;
+    public void setCompleted_tasks(int completed_tasks) {
+        this.completed_tasks = completed_tasks;
+    }
+
+    public int getOntime_tasks() {
+        return ontime_tasks;
+    }
+
+    public void setOntime_tasks(int ontime_tasks) {
+        this.ontime_tasks = ontime_tasks;
+    }
+
+    public double getQuality_score() {
+        return quality_score;
+    }
+
+    public void setQuality_score(double quality_score) {
+        this.quality_score = quality_score;
+    }
+
+    public double getPerformance_score() {
+        return performance_score;
+    }
+
+    public void setPerformance_score(double performance_score) {
+        this.performance_score = performance_score;
     }
 }

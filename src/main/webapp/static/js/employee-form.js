@@ -61,15 +61,13 @@ async function loadEmployeeData() {
             document.getElementById('manager_id').value = employee.manager_id || '';
             document.getElementById('phone').value = employee.phone || '';
             
-            // Điền thông tin thống kê
-            document.getElementById('overtime_hours').value = employee.overtime_hours;
-            document.getElementById('late_hours').value = employee.late_hours;
-            document.getElementById('absent_days').value = employee.absent_days;
-            
-            // Điền thông tin các trường mới
+            // Điền thông tin thống kê mới
             document.getElementById('base_salary').value = employee.base_salary || 0;
-            document.getElementById('working_days').value = employee.working_days || 0;
-            document.getElementById('approved_leave_days').value = employee.approved_leave_days || 0;
+            document.getElementById('task_count').value = employee.task_count || 0;
+            document.getElementById('completed_tasks').value = employee.completed_tasks || 0;
+            document.getElementById('ontime_tasks').value = employee.ontime_tasks || 0;
+            document.getElementById('quality_score').value = employee.quality_score || 0;
+            document.getElementById('performance_score').value = employee.performance_score || 0;
 
             // Đánh dấu các quyền
             const checkboxes = document.querySelectorAll('.permission-checkbox');
@@ -130,12 +128,12 @@ async function saveEmployee() {
         phone: document.getElementById('phone').value,
         permissions: getSelectedPermissions(),
         company_id: companyId,
-        overtime_hours: parseInt(document.getElementById('overtime_hours').value) || 0,
-        late_hours: parseInt(document.getElementById('late_hours').value) || 0,
-        absent_days: parseInt(document.getElementById('absent_days').value) || 0,
         base_salary: parseFloat(document.getElementById('base_salary').value) || 0,
-        working_days: parseInt(document.getElementById('working_days').value) || 0,
-        approved_leave_days: parseInt(document.getElementById('approved_leave_days').value) || 0
+        task_count: parseInt(document.getElementById('task_count').value) || 0,
+        completed_tasks: parseInt(document.getElementById('completed_tasks').value) || 0,
+        ontime_tasks: parseInt(document.getElementById('ontime_tasks').value) || 0,
+        quality_score: parseFloat(document.getElementById('quality_score').value) || 0,
+        performance_score: parseFloat(document.getElementById('performance_score').value) || 0
     };
 
     // Thêm thông tin tài khoản nếu là tạo mới

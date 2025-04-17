@@ -134,12 +134,12 @@ public class AuthResource {
             employee.setCompany_id(company.get_id());
             
             employee.setPhone(""); // Để trống hoặc giá trị mặc định
-            employee.setOvertime_hours(0);
-            employee.setLate_hours(0);
-            employee.setAbsent_days(0);
             employee.setBase_salary(0.0);
-            employee.setWorking_days(0);
-            employee.setApproved_leave_days(0);
+            employee.setTask_count(0);
+            employee.setCompleted_tasks(0);
+            employee.setOntime_tasks(0);
+            employee.setQuality_score(0.0);
+            employee.setPerformance_score(0.0);
 
             employee = employeeService.create(employee);
 

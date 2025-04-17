@@ -33,11 +33,11 @@ async function loadEmployees() {
                     <td>${managerName}</td>
                     <td>${emp.phone || '-'}</td>
                     <td>${new Intl.NumberFormat('vi-VN').format(emp.base_salary || 0)} VNĐ</td>
-                    <td>${emp.overtime_hours || 0}</td>
-                    <td>${emp.late_hours || 0}</td>
-                    <td>${emp.absent_days || 0}</td>
-                    <td>${emp.working_days || 0}</td>
-                    <td>${emp.approved_leave_days || 0}</td>
+                    <td>${emp.task_count || 0}</td>
+                    <td>${emp.completed_tasks || 0}</td>
+                    <td>${emp.ontime_tasks || 0}</td>
+                    <td>${emp.quality_score?.toFixed(1) || '0.0'}</td>
+                    <td>${emp.performance_score?.toFixed(1) || '0.0'}</td>
                     <td>
                         <div class="btn-group btn-group-sm">
                             <button class="btn btn-primary" onclick="window.location.href='employees/edit?id=${emp._id}'">

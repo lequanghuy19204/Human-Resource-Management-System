@@ -79,23 +79,23 @@ public class EmployeeResource {
             employee.setPhone((String) data.get("phone"));
             employee.setPermissions((List<String>) data.get("permissions"));
             
-            if (data.containsKey("overtime_hours")) {
-                employee.setOvertime_hours(((Number) data.get("overtime_hours")).intValue());
+            if (data.containsKey("task_count")) {
+                employee.setTask_count(((Number) data.get("task_count")).intValue());
             }
-            if (data.containsKey("late_hours")) {
-                employee.setLate_hours(((Number) data.get("late_hours")).intValue());
+            if (data.containsKey("completed_tasks")) {
+                employee.setCompleted_tasks(((Number) data.get("completed_tasks")).intValue());
             }
-            if (data.containsKey("absent_days")) {
-                employee.setAbsent_days(((Number) data.get("absent_days")).intValue());
+            if (data.containsKey("ontime_tasks")) {
+                employee.setOntime_tasks(((Number) data.get("ontime_tasks")).intValue());
+            }
+            if (data.containsKey("quality_score")) {
+                employee.setQuality_score(((Number) data.get("quality_score")).doubleValue());
+            }
+            if (data.containsKey("performance_score")) {
+                employee.setPerformance_score(((Number) data.get("performance_score")).doubleValue());
             }
             if (data.containsKey("base_salary")) {
                 employee.setBase_salary(((Number) data.get("base_salary")).doubleValue());
-            }
-            if (data.containsKey("working_days")) {
-                employee.setWorking_days(((Number) data.get("working_days")).intValue());
-            }
-            if (data.containsKey("approved_leave_days")) {
-                employee.setApproved_leave_days(((Number) data.get("approved_leave_days")).intValue());
             }
 
             // Tạo tài khoản mới
