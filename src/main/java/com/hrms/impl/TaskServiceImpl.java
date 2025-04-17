@@ -22,6 +22,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<Task> findByCompanyId(ObjectId id) {return repository.findByCompanyId(id);}
+
+    @Override
     public Task findById(ObjectId id) {
         return repository.findById(id);
     }

@@ -9,6 +9,8 @@ import java.util.List;
 public interface TaskService {
     List<Task> findAll();
 
+    List<Task> findByCompanyId(ObjectId id);
+
     Task findById(ObjectId objectId);
 
     Task create(Task task);

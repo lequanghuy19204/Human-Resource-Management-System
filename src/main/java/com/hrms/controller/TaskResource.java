@@ -8,6 +8,8 @@ import com.hrms.service.TaskService;
 import jakarta.ejb.EJB;
 import org.bson.types.ObjectId;
 
+import java.util.List;
+
 @Path("/tasks")
 @Produces({"application/json"})
 @Consumes({"application/json"})
@@ -25,6 +27,16 @@ public class TaskResource {
     @Path("/{id}")
     public Response getTaskById(@PathParam("id") ObjectId id) {
         Task task = taskService.findById(id);
+        if (task == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(task).build();
+    }
+
+    @GET
+    @Path("/company/{companyId}")
+    public Response getTaskByCompanyId(@PathParam("companyId") ObjectId id) {
+        List<Task> task = taskService.findByCompanyId(id);
         if (task == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

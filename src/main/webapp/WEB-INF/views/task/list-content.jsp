@@ -35,13 +35,12 @@
         <tr>
             <th>Tên</th>
             <th>Mô tả</th>
+            <th>Hạn hoàn thành</th>
             <th>Người được giao</th>
             <th>Trạng thái</th>
             <th>Thao tác</th>
         </tr>
         </thead>
-        <tbody id="tasksTableBody">
-        <!-- Dữ liệu sẽ được thêm bởi JavaScript -->
-        </tbody>
+        <tbody id="tasksTableBody"></tbody>
     </table>
 </div>

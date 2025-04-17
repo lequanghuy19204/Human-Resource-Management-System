@@ -30,6 +30,14 @@ public class TaskRepository {
         return tasks;
     }
 
+    public List<Task> findByCompanyId(ObjectId id) {
+        List<Task> tasks = new ArrayList<>();
+        for (Document doc : collection.find(Filters.eq("companyId", id))) {
+            tasks.add(documentToTask(doc));
+        }
+        return tasks;
+    }
+
     // Tìm Task theo ObjectId
     public Task findById(ObjectId id) {
         Document doc = collection.find(Filters.eq("_id", id)).first();

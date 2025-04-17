@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadTasks() {
     try {
-        const tasksResponse = await fetch(`${API_URL}/tasks`);
+        const companyId = document.getElementById('companyId').value;
+        const tasksResponse = await fetch(`${API_URL}/tasks/company/${companyId}`);
         if (!tasksResponse.ok) {
             throw new Error('Không thể tải danh sách nhiệm vụ');
         }

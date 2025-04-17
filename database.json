@@ -78,12 +78,14 @@
       {
         "_id": { "$oid": "64a3f5a8a6e7e0012345678e" },
         "name": "Complete Report",
+        "companyId": { "$oid": "64a3f5a8a6e7e0012345678e" },
         "description": "Hoàn thành báo cáo quý",
+        "deadline": { "$date": "2023-10-01T00:00:00Z" },
         "assigned_to": [
           { "$oid": "64a3f5a8a6e7e0012345678c" },
           { "$oid": "64a3f5a8a6e7e0012345678f" }
         ],
-        "status": "IN_PROGRESS"
+        "status": "NOT_STARTED"
       }
     ]
   },
