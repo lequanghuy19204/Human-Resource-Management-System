@@ -12,7 +12,6 @@ public class TrainingProgram {
     private String location;
     private String trainer_id;
     private List<String> participant_ids;
-    private String company_id;
 
     // Constructor
     public TrainingProgram() {
@@ -81,13 +80,5 @@ public class TrainingProgram {
 
     public void setParticipant_ids(List<String> participant_ids) {
         this.participant_ids = participant_ids;
-    }
-
-    public String getCompany_id() {
-        return company_id;
-    }
-
-    public void setCompany_id(String company_id) {
-        this.company_id = company_id;
     }
 }

@@ -3,10 +3,7 @@ let deleteTrainingId = null;
 
 async function loadTrainingPrograms() {
     try {
-        // Sử dụng company_id từ session
-        const companyId = document.getElementById('companyId').value;
-        // Sử dụng endpoint mới để lấy danh sách theo company_id
-        const response = await fetch(`${API_URL}/training-programs/company/${companyId}`);
+        const response = await fetch(`${API_URL}/training-programs`);
         const programs = await response.json();
         
         const container = document.getElementById('trainingContainer');
@@ -118,4 +115,4 @@ document.getElementById('confirmDelete').addEventListener('click', async () => {
     }
 });
 
-document.addEventListener('DOMContentLoaded', loadTrainingPrograms);
+document.addEventListener('DOMContentLoaded', loadTrainingPrograms); 

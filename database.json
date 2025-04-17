@@ -135,7 +135,6 @@
     "documents": [
       {
         "_id": { "$oid": "64a3f5a8a6e7e00123456793" },
-        "company_id": { "$oid": "67b747d5a149c44917f156ad" },
         "name": "Leadership Training",
         "description": "Đào tạo kỹ năng lãnh đạo",
         "start": { "$date": "2023-11-01T09:00:00Z" },

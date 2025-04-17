@@ -10,31 +10,8 @@
 
 <div class="card">
     <div class="card-body">
-        <!-- Bổ sung ô tìm kiếm và lọc theo tổ chức -->
-        <div class="row mb-3">
-            <div class="col-md-6 mb-2 mb-md-0">
-                <div class="input-group">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm theo tên, chức vụ, tổ chức, quản lý, số điện thoại..." aria-label="Tìm kiếm">
-                    <button class="btn btn-outline-primary" type="button" id="searchButton">
-                        <i class="bi bi-search"></i> Tìm kiếm
-                    </button>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <select class="form-select" id="organizationFilter">
-                    <option value="">-- Tất cả tổ chức --</option>
-                    <!-- Các tổ chức sẽ được thêm bởi JavaScript -->
-                </select>
-            </div>
-            <div class="col-md-2 d-grid">
-                <button class="btn btn-outline-secondary" type="button" id="resetFilterButton">
-                    <i class="bi bi-x-circle"></i> Xóa lọc
-                </button>
-            </div>
-        </div>
-
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>Tên</th>
@@ -55,13 +32,6 @@
                     <!-- Dữ liệu sẽ được thêm bởi JavaScript -->
                 </tbody>
             </table>
-        </div>
-        
-        <!-- Hiển thị thông tin phân trang -->
-        <div class="d-flex justify-content-between align-items-center mt-3" id="paginationInfo">
-            <div>
-                <span id="totalEmployees">0</span> nhân viên
-            </div>
         </div>
     </div>
 </div>

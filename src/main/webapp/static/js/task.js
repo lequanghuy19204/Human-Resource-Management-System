@@ -44,6 +44,7 @@ async function loadTasks() {
             row.innerHTML = `
                 <td>${task.name}</td>
                 <td>${task.description || 'N/A'}</td>
+                <td>${task.deadline || 'N/A'}</td>
                 <td>
                     <div class="assigned-to-container">
                         ${task.assigned_to && task.assigned_to.length > 0 ? task.assigned_to.map(employeeId => {

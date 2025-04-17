@@ -80,7 +80,7 @@
                     <a class="nav-link ${param.active == 'organization' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/organizations">
                         <i class="bi bi-diagram-3"></i>
-                        Quản lý Phòng ban
+                        Quản lý Tổ chức
                     </a>
                 </li>
                 <li class="nav-item">
@@ -119,6 +119,21 @@
                     </a>
                 </li>
                 
+                <li class="nav-item">
+                    <a class="nav-link ${param.active == 'employee-space' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/employee-space">
+                        <i class="bi bi-person-workspace"></i>
+                        Không gian Nhân viên
+                    </a>
+                </li>
+                
+                <li class="nav-item mt-3">
+                    <a class="nav-link ${param.active == 'settings' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/settings">
+                        <i class="bi bi-gear"></i>
+                        Cài đặt
+                    </a>
+                </li>
             </ul>
 
             <!-- User Section -->

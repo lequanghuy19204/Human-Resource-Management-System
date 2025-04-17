@@ -9,8 +9,6 @@ import java.util.List;
 public interface TrainingProgramService {
     List<TrainingProgram> findAll();
 
-    List<TrainingProgram> findByCompanyId(ObjectId companyId);
-
     TrainingProgram findById(ObjectId id);
 
     TrainingProgram create(TrainingProgram program);

@@ -17,9 +17,11 @@
                 <div class="col-md-6 mb-3">
                     <label for="status" class="form-label">Trạng thái <span class="text-danger">*</span></label>
                     <select class="form-select" id="status" required>
-                        <option value="">Chọn trạng thái</option>
+                        <option value="NOT_STARTED">Chưa bắt đầu</option>
                         <option value="IN_PROGRESS">Đang thực hiện</option>
-                        <option value="COMPLETED">Hoàn thành</option>
+                        <option value="COMPLETED">Hoàn thành đúng hạn</option>
+                        <option value="OVERDUE">Quá hạn</option>
+                        <option value="LATE_COMPLETED">Hoàn thành quá hạn</option>
                     </select>
                     <div class="invalid-feedback">Vui lòng chọn trạng thái</div>
                 </div>
@@ -38,6 +40,12 @@
                 <div class="col-md-6 mb-3">
                     <label for="description" class="form-label">Mô tả</label>
                     <textarea class="form-control" id="description" rows="10" style="resize: vertical;"></textarea>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="deadline" class="form-label">Hạn hoàn thành <span class="text-danger">*</span></label>
+                    <input type="datetime-local" class="form-control" id="deadline" required>
+                    <div class="invalid-feedback">Vui lòng chọn hạn hoàn thành</div>
                 </div>
             </div>
 

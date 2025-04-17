@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <input type="hidden" id="companyId" value="${sessionScope.companyId}">
-<input type="hidden" id="taskId" value="${param.id}">
 
 <jsp:include page="../shared/taskbar.jsp">
     <jsp:param name="title" value="${empty param.id ? 'Thêm mới' : 'Cập nhật'} Nhiệm vụ" />

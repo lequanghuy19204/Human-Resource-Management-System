@@ -1,5 +1,7 @@
 package com.hrms.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +11,7 @@ public class Task {
     private String name;
     private String description;
     private List<String> assigned_to; // List of ObjectId references to Employee
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private Date deadline;
     private String status; // Enum: IN_PROGRESS, COMPLETED, etc.
 

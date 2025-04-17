@@ -36,7 +36,8 @@ async function loadCompanies() {
 
 async function loadEmployees() {
     try {
-        const response = await fetch(`${API_URL}/employees`);
+        const companyId = document.getElementById('companyId').value;
+        const response = await fetch(`${API_URL}/employees/company/${companyId}`);
         if (!response.ok) {
             throw new Error('Không thể tải danh sách nhân viên');
         }
@@ -177,6 +178,8 @@ async function saveTask() {
     const taskId = new URLSearchParams(window.location.search).get('id');
     const taskData = {
         name: document.getElementById('name').value,
+        deadline: document.getElementById('deadline').value,
+        companyId: document.getElementById('companyId').value,
         description: document.getElementById('description').value,
         assigned_to: Array.from(document.querySelectorAll('#employeeList .form-check-input:checked'))
             .map(checkbox => checkbox.value),
@@ -194,7 +197,7 @@ async function saveTask() {
             },
             body: JSON.stringify(taskData)
         });
-
+        console.log(JSON.stringify(taskData));
         if (response.ok) {
             window.location.href = '/Human-Resource-Management-System-1.0-SNAPSHOT/tasks';
         } else {

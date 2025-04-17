@@ -1,5 +1,6 @@
 package com.hrms.controller;
 
+import com.hrms.model.Employee;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import com.hrms.model.Task;
@@ -46,6 +47,7 @@ public class TaskResource {
     @POST
     public Response createTask(Task task) {
         taskService.create(task);
+
         return Response.status(Response.Status.CREATED).build();
     }
 

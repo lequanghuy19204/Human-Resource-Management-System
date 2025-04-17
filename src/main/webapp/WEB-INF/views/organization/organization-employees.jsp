@@ -4,7 +4,7 @@
 <input type="hidden" id="organizationId" value="${param.id}">
 
 <jsp:include page="../shared/taskbar.jsp">
-    <jsp:param name="title" value="Danh sách Nhân viên - Phòng ban" />
+    <jsp:param name="title" value="Danh sách Nhân viên - Tổ chức" />
     <jsp:param name="active" value="organizations" />
     <jsp:param name="content" value="../organization/organization-employees-content.jsp" />
     <jsp:param name="scripts" value="

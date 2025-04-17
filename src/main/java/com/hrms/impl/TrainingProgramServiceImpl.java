@@ -20,11 +20,6 @@ public class TrainingProgramServiceImpl implements TrainingProgramService {
     }
 
     @Override
-    public List<TrainingProgram> findByCompanyId(ObjectId companyId) {
-        return repository.findByCompanyId(companyId);
-    }
-
-    @Override
     public TrainingProgram findById(ObjectId id) {
         return repository.findById(id);
     }

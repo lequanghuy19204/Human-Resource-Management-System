@@ -48,7 +48,6 @@ public class TaskRepository {
     public Task create(Task task) {
         Document doc = taskToDocument(task);
         collection.insertOne(doc);
-        // Gán ID được MongoDB tự tạo cho đối tượng Task
         task.set_id(doc.getObjectId("_id").toString());
         return task;
     }
@@ -72,9 +71,11 @@ public class TaskRepository {
         Task task = new Task();
         task.set_id(doc.getObjectId("_id").toString());
         task.setName(doc.getString("name"));
+        task.setDeadline(doc.getDate("deadline"));
+        task.setCompanyId(doc.getObjectId("companyId").toString());
         task.setDescription(doc.getString("description"));
 
-        // Chuyển đổi danh sách ObjectId từ `assigned_to` sang String, thêm kiểm tra kiểu
+        // Chuyển đổi danh sách ObjectId từ assigned_to sang String, thêm kiểm tra kiểu
         List<?> rawAssignedTo = doc.get("assigned_to", List.class);
         List<String> assignedTo = new ArrayList<>();
         if (rawAssignedTo != null) {
@@ -98,10 +99,12 @@ public class TaskRepository {
         if (task.get_id() != null) {
             doc.put("_id", new ObjectId(task.get_id()));
         }
+        doc.put("deadline", task.getDeadline());
+        doc.put("companyId", new ObjectId(task.getCompanyId()));
         doc.put("name", task.getName());
         doc.put("description", task.getDescription());
 
-        // Chuyển đổi danh sách String sang ObjectId cho `assigned_to`
+        // Chuyển đổi danh sách String sang ObjectId cho assigned_to
         List<ObjectId> assignedTo = new ArrayList<>();
         if (task.getAssigned_to() != null) {
             for (String id : task.getAssigned_to()) {
