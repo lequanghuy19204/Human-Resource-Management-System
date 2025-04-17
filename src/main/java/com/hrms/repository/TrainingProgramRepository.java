@@ -28,6 +28,13 @@ public class TrainingProgramRepository {
         return programs;
     }
 
+    public List<TrainingProgram> findByCompanyId(ObjectId companyId) {
+        List<TrainingProgram> programs = new ArrayList<>();
+        collection.find(Filters.eq("company_id", companyId))
+                .forEach(doc -> programs.add(documentToTrainingProgram(doc)));
+        return programs;
+    }
+
     public TrainingProgram findById(ObjectId id) {
         Document doc = collection.find(Filters.eq("_id", id)).first();
         return doc != null ? documentToTrainingProgram(doc) : null;
@@ -60,6 +67,10 @@ public class TrainingProgramRepository {
         program.setEnd(doc.getDate("end"));
         program.setLocation(doc.getString("location"));
         program.setTrainer_id(doc.getObjectId("trainer_id").toString());
+        
+        if (doc.containsKey("company_id")) {
+            program.setCompany_id(doc.getObjectId("company_id").toString());
+        }
 
         List<ObjectId> participantObjectIds = (List<ObjectId>) doc.get("participant_ids");
         if (participantObjectIds != null) {
@@ -82,6 +93,10 @@ public class TrainingProgramRepository {
         doc.append("end", program.getEnd());
         doc.append("location", program.getLocation());
         doc.append("trainer_id", new ObjectId(program.getTrainer_id()));
+        
+        if (program.getCompany_id() != null) {
+            doc.append("company_id", new ObjectId(program.getCompany_id()));
+        }
 
         if (program.getParticipant_ids() != null) {
             List<ObjectId> participantIds = program.getParticipant_ids().stream()

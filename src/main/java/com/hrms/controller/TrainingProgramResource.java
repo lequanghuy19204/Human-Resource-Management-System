@@ -33,6 +33,18 @@ public class TrainingProgramResource {
     }
 
     @GET
+    @Path("/company/{companyId}")
+    public Response getTrainingProgramsByCompanyId(@PathParam("companyId") String companyId) {
+        try {
+            return Response.ok(trainingProgramService.findByCompanyId(new ObjectId(companyId))).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Lỗi khi lấy danh sách chương trình đào tạo: " + e.getMessage())
+                    .build();
+        }
+    }
+
+    @GET
     @Path("/{id}")
     public Response getTrainingProgramById(@PathParam("id") String id) {
         try {
