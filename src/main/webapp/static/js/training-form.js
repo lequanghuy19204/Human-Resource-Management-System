@@ -176,6 +176,7 @@ async function handleSubmit(event) {
         return;
     }
 
+    const companyId = document.getElementById('companyId').value;
     const trainingData = {
         name: document.getElementById('name').value,
         location: document.getElementById('location').value,
@@ -183,7 +184,8 @@ async function handleSubmit(event) {
         start: new Date(document.getElementById('start').value),
         end: new Date(document.getElementById('end').value),
         trainer_id: document.getElementById('trainer').value,
-        participant_ids: selectedParticipants
+        participant_ids: selectedParticipants,
+        company_id: companyId
     };
 
     try {
