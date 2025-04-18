@@ -17,6 +17,8 @@ import java.util.List;
 public class SalaryServiceImpl implements SalaryService {
     @Inject
     private SalaryRepository repository;
+
+    @Inject
     private EmployeeRepository employeeRepository;
 
     public SalaryServiceImpl() { }
@@ -47,23 +49,37 @@ public class SalaryServiceImpl implements SalaryService {
     }
 
     @Override
-    public List<Salary> getByMonth(int month, int year) {
+    public List<Salary> getByMonth(int month, int year, ObjectId companyId) {
         List<Salary> salaries = new ArrayList<>();
-        List<Employee> employees = employeeRepository.findAll();
+        List<Employee> employees = employeeRepository.findByCompanyId(companyId);
+
         for (Employee employee : employees) {
             Salary salary = repository.getByMonth(month, year, employee.get_id());
+
             if (salary != null) {
                 salary.setBase_salary(employee.getBase_salary());
-                salary.setSumSalary(salary.getBase_salary()
-                        + salary.getOvertime_hours()*50000
-                        - salary.getLate_hours()*20000
-                        - (salary.getAbsent_days() - salary.getApproved_leave_days())*100000);
+                salary.setName(employee.getName());          // Thêm tên
+                salary.setPhone(employee.getPhone());        // Thêm số điện thoại
+
+                salary.setSumSalary(
+                        salary.getBase_salary()
+                                + salary.getOvertime_hours() * 50000
+                                - salary.getLate_hours() * 20000
+                                - (salary.getAbsent_days() - salary.getApproved_leave_days()) * 100000
+                );
+            } else {
+                salary = new Salary(); // tạo mới nếu không có
+                salary.setEmployee_id(employee.get_id());
+                salary.setBase_salary(employee.getBase_salary());
+                salary.setName(employee.getName());
+                salary.setPhone(employee.getPhone());
+                salary.setSumSalary(salary.getBase_salary());
             }
-            else {
-                salary = null;
-            }
+
             salaries.add(salary);
         }
+
         return salaries;
     }
+
 }

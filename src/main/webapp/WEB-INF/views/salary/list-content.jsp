@@ -3,9 +3,6 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="mb-4">Danh sách lương nhân viên</h2>
-    <button class="btn btn-primary" onclick="window.location.href='salaries/create'">
-        <i class="bi bi-plus-circle"></i> Thêm
-    </button>
 </div>
 <div class="d-flex form-group mb-4">
     <label for="monthFilter">Lọc theo tháng:</label>
@@ -18,11 +15,13 @@
         <tr>
             <th>STT</th>
             <th>Tên nhân viên</th>
-            <th>Công ty</th>
             <th>Số điện thoại</th>
             <th>Lương cơ bản</th>
-            <th>Thưởng (nếu có)</th>
-            <th>Ngày làm tháng</th>
+            <th>Giờ tăng ca</th>
+            <th>Giờ muộn</th>
+            <th>Số ngày nghỉ</th>
+            <th>Số ngày nghỉ có phép</th>
+            <th>Tổng lương</th>
             <th>Thao tác</th>
         </tr>
         </thead>

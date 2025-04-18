@@ -18,5 +18,5 @@ public interface SalaryService {
 
     boolean delete(ObjectId objectId); // Thay đổi từ ObjectId thành String
 
-    List<Salary> getByMonth(int month, int year);
+    List<Salary> getByMonth(int month, int year, ObjectId companyId);
 }

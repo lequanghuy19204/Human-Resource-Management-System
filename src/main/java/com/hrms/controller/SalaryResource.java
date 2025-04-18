@@ -33,6 +33,16 @@ public class SalaryResource {
         return Response.ok(salary).build();
     }
 
+    @HEAD
+    @Path("/{id}")
+    public Response checkSalaryExists(@PathParam("id") ObjectId id) {
+        Salary salary = salaryService.findById(id);
+        if (salary == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok().build();
+    }
+
     @POST
     public Response createSalary(Salary salary) {
         salaryService.create(salary);
@@ -54,9 +64,9 @@ public class SalaryResource {
     }
 
     @GET
-    @Path("/month/{month}/year/{year}")
-    public Response getSalaryByMonth(@PathParam("month") int month, @PathParam("year") int year) {
-         List<Salary> salaries = salaryService.getByMonth(month, year);
+    @Path("/month/{month}/year/{year}/companyId/{companyId}")
+    public Response getSalaryByMonth(@PathParam("month") int month, @PathParam("year") int year, @PathParam("companyId") ObjectId companyId) {
+         List<Salary> salaries = salaryService.getByMonth(month, year, companyId);
          return Response.ok(salaries).build();
     }
 }

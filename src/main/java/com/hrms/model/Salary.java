@@ -8,13 +8,16 @@ public class Salary {
     private String employee_id; // Sử dụng String
     private int working_days;
     private Date payment_date;
-    private int overtime_hours;
-    private int late_hours;
-    private int absent_days;
+    private int overtime_hours = 0;
+    private int late_hours = 0;
+    private int absent_days = 0;
     private String account_id;
-    private int approved_leave_days;
+    private int approved_leave_days = 0;
+
     private transient double base_salary;
     private transient double sumSalary;
+    private transient String name;
+    private transient String phone;
 
     public Salary() { }
 
@@ -104,5 +107,21 @@ public class Salary {
 
     public void setSumSalary(double sumSalary) {
         this.sumSalary = sumSalary;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
